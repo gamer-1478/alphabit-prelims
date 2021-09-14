@@ -5,19 +5,14 @@ const { validateEmail } = require('../reusable/misc_reuse')
 
 async function initialize(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (email, password, done) => {
-    console.log(email, password)
     if(!validateEmail(email)){
-      console.log('The email is not a valid email.')
       return done(null, false, { message: 'The email is not a valid email.' })
     }
     if (password.length < 6){
-      console.log('The password is not a valid password.')
       return done(null, false, { message: 'The password is not a valid password.' })
     }
     const user = await getUserByEmail(email)
     if (user == null) {
-      console.log('There is no user with That email.')
-
       return done(null, false, { message: 'There is no user with That email' })
     }
 
@@ -25,7 +20,6 @@ async function initialize(passport, getUserByEmail, getUserById) {
       if (await bcrypt.compare(password, user.password)) {
         return done(null, user)
       } else {
-        console.log('The Password you have entered is inncorrect.')
         return done(null, false, { message: 'The Password you have entered is inncorrect.' })
       }
     } catch (e) {
@@ -38,7 +32,7 @@ async function initialize(passport, getUserByEmail, getUserById) {
   await passport.serializeUser((user, done) => done(null, user.id))
   await passport.deserializeUser(async (id, done) => {
     let usertoreturn = await getUserById(id)
-    console.log(usertoreturn)
+    console.log("new login by name and email as given", usertoreturn.name, usertoreturn.email)
     return done(null, usertoreturn)
   })
 }

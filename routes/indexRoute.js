@@ -19,13 +19,9 @@ router.post("/login", checkNotAuthenticated, passport.authenticate("local", {
     successRedirect: "/dashboard",
     failureRedirect: "/login",
     failureFlash: true
-}), (req, res)=>{
-    console.log("got a login request with ", req.body.email, req.body.password)
-}
-);
+}));
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
-    console.log("got a new registration request")
     if (!validateEmail(req.body.email)) {
         res.send({ message: "Email Is not valid", success: false })
     }
