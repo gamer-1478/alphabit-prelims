@@ -48,16 +48,16 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
                         password: hashedPassword,
                         type_of_user: req.body.type_of_user
                     }).then(async () => {
-                        console.log("registration Successfull")
+                        console.log("Registration Successfull")
                         res.send({ message: "Registration Successfull.", success: true })
                     })
                 }
                 else {
-                    res.send({ message: "account with same username already exists, please take another username", success: false })
+                    res.send({ message: "Account With Same Username Already Exists, Please Take Another Username", success: false })
                 }
             }
             else {
-                res.send({ message: "account with same email already exists, please enter another email", success: false })
+                res.send({ message: "Account With Same Email Already Exists, Please Enter Another Email", success: false })
             }
         } catch (e) {
             console.log(e)
