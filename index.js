@@ -20,10 +20,10 @@ const userCollection = db.collection("users");
 
 /*ejs and other misscelanous stuff.*/
 app.use(expressLayouts);
-app.set('view engine','ejs')
+app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 const methodOverride = require("method-override");
 
 
@@ -68,7 +68,10 @@ initializePassport(
 
 //deploying website stuff. such as app and router etc.
 const indexRoute = require('./routes/indexRoute')
-app.use(indexRoute)
+const dashboardRoute = require('./routes/dashboard')
+
+app.use('/', indexRoute)
+app.use('/dashboard', dashboardRoute)
 
 
 app.listen(PORT, err => {
