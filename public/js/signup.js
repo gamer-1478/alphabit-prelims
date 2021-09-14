@@ -23,6 +23,7 @@ async function indexSignup() {
                             await fetch(
                                 window.location.origin + `/register`, {
                                 method: "POST",
+                                redirect: 'follow',
                                 body: JSON.stringify({
                                     name: full_name,
                                     username: username,
@@ -33,13 +34,36 @@ async function indexSignup() {
                                 headers: {
                                     "Content-Type": "application/json; charset=utf-8"
                                 },
-                            }
-                            )
-                        ).json();
+                            }).then(response => {
+                                if (response.redirected) {
+                                    window.location.href = response.url;
+                                } else {
+                                    return response.json()
+                                }
+                            })
+                        )
                         window.document.getElementById('error').innerHTML = response.message;
-
+                        //if register was successfull, we try automatic login and go whereever it redirects us.
                         if (response.success == true) {
-                            window.location.href = '/signin'
+                            const response = await (
+                                await fetch(
+                                    window.location.origin + `/login`, {
+                                    method: "POST",
+                                    redirect: 'follow',
+                                    body: JSON.stringify({
+                                        email: email,
+                                        password: password,
+                                    }),
+                                    headers: {
+                                        "Content-Type": "application/json; charset=utf-8"
+                                    },
+                                }
+                                ).then(response => {
+                                    if (response.redirected) {
+                                        window.location.href = response.url;
+                                    }
+                                })
+                            )
                         }
                     } catch (e) {
                         window.document.getElementById('error').innerHTML = e;

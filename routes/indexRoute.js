@@ -17,12 +17,15 @@ router.get('/', ((req, res, next) => {
 
 router.post("/login", checkNotAuthenticated, passport.authenticate("local", {
     successRedirect: "/dashboard",
-    failureRedirect: "/signin",
-    failureFlash: true,
-})
+    failureRedirect: "/login",
+    failureFlash: true
+}), (req, res)=>{
+    console.log("got a login request with ", req.body.email, req.body.password)
+}
 );
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
+    console.log("got a new registration request")
     if (!validateEmail(req.body.email)) {
         res.send({ message: "Email Is not valid", success: false })
     }
@@ -44,8 +47,10 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
                         email: req.body.email,
                         password: hashedPassword,
                         type_of_user: req.body.type_of_user
+                    }).then(async () => {
+                        console.log("registration Successfull")
+                        res.send({ message: "Authentication Successfull.", success: true })
                     })
-                    res.send({ message: "Registeration Successful", success: true })
                 }
                 else {
                     res.send({ message: "account with same username already exists, please take another username", success: false })
@@ -63,7 +68,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
 
 router.delete("/logout", checkAuthenticated, (req, res) => {
     req.logOut();
-    res.redirect("/signin");
+    res.redirect("/login");
 });
 
 router.get("/login", checkNotAuthenticated, async (req, res) => {
