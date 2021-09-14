@@ -66,14 +66,14 @@ router.delete("/logout", checkAuthenticated, (req, res) => {
     res.redirect("/signin");
 });
 
-router.get("/signin", checkNotAuthenticated, async (req, res) => {
+router.get("/login", checkNotAuthenticated, async (req, res) => {
     res.render("pages/signin.ejs", {
         loggedIn: false,
         title: "SignIn",
     });
 });
 
-router.get("/signup", checkNotAuthenticated, async (req, res) => {
+router.get("/register", checkNotAuthenticated, async (req, res) => {
     res.render("pages/signup.ejs", {
         loggedIn: false,
         title: "SignUp",
