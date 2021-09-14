@@ -1,0 +1,150 @@
+<div class="signup-index-container">
+    <div>
+        <h1>Sign Up To Our Service</h1>
+    </div>
+    <div class="signup-section">
+        <form class="signup-form" onsubmit="event.preventDefault(); indexSignup()">
+            <label for="signup-index-fullname">Full Name</label>
+            <input type="text" id="signup-index-fullname"><br><br>
+            <label for="signup-index-username">Username</label>
+            <input type="text" id="signup-index-username"><br><br>
+            <label for="signup-index-email">Email Address</label>
+            <input type="text" id="signup-index-email"><br><br>
+            <label for="signup-index-password">Password</label>
+            <input type="password" id="signup-index-password"><br><br>
+            <label for="signup-index-confirm-password">Confirm Password</label>
+            <input type="password" id="signup-index-confirm-password"><br><br>
+
+            <input type="checkbox" id="terms">
+            <label for="terms"> Agree To Terms and Conditions</label><br>
+
+            <p>Registration Type</p><br>
+
+            <label>User Registration</label>
+            <label class="switch">
+                <input type="checkbox" id='type_of_user'>
+                <span class="slider"></span>
+            </label>
+            <label>Retailer Registration</label><br>
+
+            <input type="submit" value="Register" class="signup-index-submit" id="signup-index-submit">
+        </form>
+    </div>
+    <h4 id="error"></h4>
+</div>
+
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #2196F3;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+</style>
+
+<script>
+    async function indexSignup() {
+        let full_name, username, email, password, confirm_password, type_of_user, terms_conditions;
+
+        full_name = window.document.getElementById('signup-index-fullname').value
+        username = window.document.getElementById('signup-index-username').value
+        email = window.document.getElementById('signup-index-email').value
+        password = window.document.getElementById('signup-index-password').value
+        confirm_password = window.document.getElementById('signup-index-confirm-password').value
+        terms_conditions = window.document.getElementById('terms').checked
+        type_of_user = window.document.getElementById('type_of_user').checked
+
+        if (full_name.length != 0 && username.length != 0 && email.length != 0 && password.length != 0 &&
+            confirm_password.length != 0) {
+            window.document.getElementById('error').innerHTML = "";
+
+            if (terms_conditions == true) {
+                if (password.length >= 6) {
+                    window.document.getElementById('error').innerHTML = "";
+                    if (password == confirm_password) {
+
+                        try {
+                            const response = await (
+                                await fetch(
+                                    window.location.origin + `/register`, {
+                                        method: "POST",
+                                        body: JSON.stringify({
+                                            name: full_name,
+                                            username: username,
+                                            email: email,
+                                            password: password,
+                                            type_of_user: type_of_user
+                                        }),
+                                        headers: {
+                                            "Content-Type": "application/json; charset=utf-8"
+                                        },
+                                    }
+                                )
+                            ).json();
+                            window.document.getElementById('error').innerHTML = response.message;
+                        } catch (e) {
+                            window.document.getElementById('error').innerHTML = e;
+                        }
+
+                    } else {
+                        window.document.getElementById('error').innerHTML = "Password's do not match";
+                    }
+                } else {
+                    window.document.getElementById('error').innerHTML =
+                        "Password has to be at minimum of 6 letters.";
+                }
+            } else {
+                window.document.getElementById('error').innerHTML = "Please Agree to Terms and Conditions";
+            }
+        } else {
+            window.document.getElementById('error').innerHTML = "Please Fill All The Fields";
+        }
+    }
+</script>

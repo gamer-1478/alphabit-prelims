@@ -24,10 +24,10 @@ router.post("/login", checkNotAuthenticated, passport.authenticate("local", {
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
     if (!validateEmail(req.body.email)) {
-        res.send({ message: "Email Is not valid" })
+        res.send({ message: "Email Is not valid", success: false })
     }
     else if (req.body.password.length < 6) {
-        res.send({ message: "Password Is less than 6 letters." })
+        res.send({ message: "Password Is less than 6 letters.", success: false })
     }
     else {
         try {
@@ -42,20 +42,21 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
                         name: req.body.name,
                         username: req.body.username,
                         email: req.body.email,
-                        password: hashedPassword
+                        password: hashedPassword,
+                        type_of_user: req.body.type_of_user
                     })
-                    res.send({ message: "Registeration Successful" })
+                    res.send({ message: "Registeration Successful", success: true })
                 }
                 else {
-                    res.send({ message: "account with same username already exists, please take another username" })
+                    res.send({ message: "account with same username already exists, please take another username", success: false })
                 }
             }
             else {
-                res.send({ message: "account with same email already exists, please enter another email" })
+                res.send({ message: "account with same email already exists, please enter another email", success: false })
             }
         } catch (e) {
             console.log(e)
-            res.send({ message: "Registeration Failure" })
+            res.send({ message: "Registeration Failure", success: false })
         }
     }
 })
