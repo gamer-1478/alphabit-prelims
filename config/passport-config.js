@@ -32,7 +32,6 @@ async function initialize(passport, getUserByEmail, getUserById) {
   await passport.serializeUser((user, done) => done(null, user.id))
   await passport.deserializeUser(async (id, done) => {
     let usertoreturn = await getUserById(id)
-    console.log("new login by name and email as given", usertoreturn.name, usertoreturn.email)
     return done(null, usertoreturn)
   })
 }
