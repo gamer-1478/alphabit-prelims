@@ -8,9 +8,9 @@ function checkAuthenticated(req, res, next) {
 
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        return res.redirect(`/${req.user.username}`);
+        return res.redirect(`/dashboard`);
     }
     next();
 }
 
-module.exports = {checkAuthenticated, checkNotAuthenticated}
+module.exports = { checkAuthenticated, checkNotAuthenticated }

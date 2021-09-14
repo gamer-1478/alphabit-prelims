@@ -37,6 +37,10 @@ async function indexSignup() {
                             )
                         ).json();
                         window.document.getElementById('error').innerHTML = response.message;
+
+                        if (response.success == true) {
+                            window.location.href = '/signin'
+                        }
                     } catch (e) {
                         window.document.getElementById('error').innerHTML = e;
                     }
