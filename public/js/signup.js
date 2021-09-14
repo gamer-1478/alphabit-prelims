@@ -1,3 +1,5 @@
+var notyf = new Notyf();
+
 async function indexSignup() {
     let full_name, username, email, password, confirm_password, type_of_user, terms_conditions;
 
@@ -11,13 +13,9 @@ async function indexSignup() {
 
     if (full_name.length != 0 && username.length != 0 && email.length != 0 && password.length != 0 &&
         confirm_password.length != 0) {
-        window.document.getElementById('error').innerHTML = "";
-
         if (terms_conditions == true) {
             if (password.length >= 6) {
-                window.document.getElementById('error').innerHTML = "";
                 if (password == confirm_password) {
-
                     try {
                         const response = await (
                             await fetch(
@@ -42,44 +40,48 @@ async function indexSignup() {
                                 }
                             })
                         )
-                        window.document.getElementById('error').innerHTML = response.message;
+                        
                         //if register was successfull, we try automatic login and go whereever it redirects us.
-                        if (response.success == true) {
-                            const response = await (
-                                await fetch(
-                                    window.location.origin + `/login`, {
-                                    method: "POST",
-                                    redirect: 'follow',
-                                    body: JSON.stringify({
-                                        email: email,
-                                        password: password,
-                                    }),
-                                    headers: {
-                                        "Content-Type": "application/json; charset=utf-8"
-                                    },
+                        if (response.success === true) {
+                            notyf.success(response.message)
+                            notyf.success('Trying To Login')
+                            await fetch(
+                                window.location.origin + `/login`, {
+                                method: "POST",
+                                redirect: 'follow',
+                                body: JSON.stringify({
+                                    email: email,
+                                    password: password,
+                                }),
+                                headers: {
+                                    "Content-Type": "application/json; charset=utf-8"
+                                },
+                            }
+                            ).then(response => {
+                                if (response.redirected) {
+                                    notyf.success('Login Successful, Redirecting To Dashboard')
+                                    window.location.href = response.url;
                                 }
-                                ).then(response => {
-                                    if (response.redirected) {
-                                        window.location.href = response.url;
-                                    }
-                                })
-                            )
+                            })
+
+                        }
+                        else {
+                            notyf.error(response.message)
                         }
                     } catch (e) {
-                        window.document.getElementById('error').innerHTML = e;
+                        console.log(e)
                     }
 
                 } else {
-                    window.document.getElementById('error').innerHTML = "Password's do not match";
+                    notyf.error("Password's do not match");
                 }
             } else {
-                window.document.getElementById('error').innerHTML =
-                    "Password has to be at minimum of 6 letters.";
+                notyf.error("Password has to be at minimum of 6 letters.");
             }
         } else {
-            window.document.getElementById('error').innerHTML = "Please Agree to Terms and Conditions";
+            notyf.error("Please Agree to Terms and Conditions");
         }
     } else {
-        window.document.getElementById('error').innerHTML = "Please Fill All The Fields";
+        notyf.error("Please Fill All The Fields");
     }
 }

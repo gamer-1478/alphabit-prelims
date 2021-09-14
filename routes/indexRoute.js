@@ -49,7 +49,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
                         type_of_user: req.body.type_of_user
                     }).then(async () => {
                         console.log("registration Successfull")
-                        res.send({ message: "Authentication Successfull.", success: true })
+                        res.send({ message: "Registration Successfull.", success: true })
                     })
                 }
                 else {
