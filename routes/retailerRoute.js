@@ -2,19 +2,83 @@ const express = require('express')
 const router = express.Router();
 const { checkAuthenticated, checkNotAuthenticated } = require('../reusable/passport_reuse')
 const Product = require('../models/product')
+const admin = require("../firebase");
+const db = admin.firestore();
+const userCollection = db.collection("users");
 
 
-router.post('/sellForm', async (req, res) => {
-    console.log(req.body)
+router.post('/sellForm', checkAuthenticated, async (req, res) => {
     var prod = new Product({ title: req.body.title, description: req.body.description, price: req.body.price, category: req.body.category, image_: req.body.image, rating: { rate: 5, count: 0 } })
-    await prod.save(function (err, product) {
-        if (err) { 
-            res.send({ message: 'Product Failed To Be Added', sucess: false, error:err })
-            return console.error(err) 
+    await prod.save(async function (err, product) {
+        if (err) {
+            res.send({ message: 'Product Failed To Be Added', sucess: false, error: err })
+            return console.error(err)
         };
-        res.send({ message: 'Product Added Successfully', sucess: true })
         console.log(product.title + " saved to products collection.");
+        var products = await userCollection.doc(req.user.username).get()
+        products = await products.data()
+        if (await products.hasOwnProperty('products')) {
+            products.products.push(product.id)
+        }
+        else {
+            products.products = []
+            products.products.push(product.id)
+        }
+        await userCollection.doc(req.user.username).set(products).then((results) => {
+            res.send({ message: 'Product Added Successfully', sucess: true })
+        })
     });
 })
 
+router.get('/view_products', checkAuthenticated, async (req, res) => {
+    if (req.user.type_of_user==true){
+    var products_fire = await userCollection.doc(req.user.username).get()
+    products_fire = products_fire.data()
+    products_fire = products_fire.products
+
+    if (products_fire.length != 0) {
+        var products = await Promise.all(products_fire.map(async (element, index, array) => {
+            return await Product.findById(element).then((result) => {
+                return (result)
+            })
+        })
+        ).then(result => {
+            return result
+        })
+
+        res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, retailer_products: await products })
+    }
+    else {
+        res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, retailer_products: [] })
+    }
+    }
+    else{
+        res.redirect('/dashboard')
+    }
+})
+
+router.post('/remove', checkAuthenticated, async (req, res) => {
+    Product.findById(req.body.id).remove().then(async (resp, err) => {
+        if (err) {
+            console.log(err, "ran into something")
+            res.send({ success: false, error: err, message: 'Failed to Delete due to a server Side Error' })
+        }
+        else {
+            var resp_fire = await userCollection.doc(req.user.username).get()
+            resp_fire = resp_fire.data()
+            resp_fire_products = resp_fire.products
+
+            resp_fire.products.splice(resp_fire_products.indexOf(req.body.id), 1);
+            await userCollection.doc(req.user.username).set(resp_fire).then((responce, error) => {
+                if (error) {
+                    console.log(error, responce)
+                }
+
+                res.send({ success: true, error: '', message: 'Deleted Successfully' })
+
+
+            })
+        }
+    })
+})
 module.exports = router;

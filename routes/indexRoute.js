@@ -42,8 +42,10 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
                         username: req.body.username,
                         email: req.body.email,
                         password: hashedPassword,
-                        type_of_user: req.body.type_of_user,
-                        cart: []
+                        products:[],
+                        cart:[],
+                        type_of_user: req.body.type_of_user
+
                     }).then(async () => {
                         console.log("Registration Successfull")
                         res.send({ message: "Registration Successfull.", success: true })
