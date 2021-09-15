@@ -73,15 +73,7 @@ const dashboardRoute = require('./routes/dashboard')
 app.use('/', indexRoute)
 app.use('/dashboard', dashboardRoute)
 
-
-app.listen(PORT, err => {
-    console.log(`App listening on ${PORT}`)
-    if (err) throw err
-})
-
-
-//uncomment if we use mongodb in the future.
-/*mongoose.connect(String(mongoURI), {
+mongoose.connect(String(mongoURI), {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then((result) => {
@@ -93,6 +85,11 @@ app.listen(PORT, err => {
     })
 
 }).catch((err) => console.log(err))
-*/
+
+
+
+
+
+
 
 
