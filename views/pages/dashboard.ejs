@@ -1,11 +1,11 @@
 <div>
     <% if (user.type_of_user == false) { %>
     <div>
-        <%- include('./type/retail.ejs') %>
+        <%- include('./type/consumer.ejs') %>
     </div>
     <% } else { %>
     <div>
-        <%- include('./type/consumer.ejs') %>
+        <%- include('./type/retail.ejs') %>
     </div>
     <% } %>
 </div>
