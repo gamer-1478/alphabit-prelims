@@ -12,6 +12,10 @@ const productSchema = new Schema({
     'rating': {
         'rate': reqNumber,
         'count': reqNumber
+    },
+    'count': {
+        type: Number,
+        required: false
     }
 }, { collection: 'products' })
 
