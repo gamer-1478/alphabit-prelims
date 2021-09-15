@@ -1,14 +1,11 @@
 <div>
     <div id="mainFront">
         <button onclick="sellProduct()">Sell A New Product</button>
-        <button>See Your Listed Profucts</button>
+        <button onclick="seeListedProducts()">See Your Listed Products</button>
     </div>
 
     <div id='SellProductForm' style="visibility: hidden;">
-        <i class="fas fa-arrow-left" onclick="new function (){
-                    document.getElementById('mainFront').style.visibility = 'visible';
-                    document.getElementById('SellProductForm').style.visibility = 'hidden';
-        }"></i>
+        <i class="fas fa-arrow-left" onclick="new function (){}"></i>
 
         <form class="sell-form" onsubmit="event.preventDefault(); dashboardSellProduct()">
             <label for="title">Enter Product Title</label>
@@ -17,10 +14,7 @@
             <label for="description">Enter Product Description</label>
             <input type="text" id="description" name="description" class="description"><br><br>
 
-            <label for="price">Enter Product Price</label>
-            <input type="text" id="price" name="price" class="price"><br><br>
-
-            <label for="price">Enter Product Price</label>
+            <label for="price">Enter Product Price in US DOLLARS</label>
             <input type="text" id="price" name="price" class="price"><br><br>
 
             <label for="image">Enter Product image link (it must end with .png or .jpg)</label>
@@ -38,9 +32,85 @@
 <script>
     var notyf = new Notyf();
 
+    async function seeListedProducts() {
+        var hmmm = await testImage('https://i.imgur.com/LvKN3cO.jpeg')
+        console.log(await hmmm)
+    }
+
+    async function testImage(url) {
+        return new Promise(function (resolve, reject) {
+            var timeout = 5000;
+            var timer, img = new Image();
+            img.onerror = img.onabort = function () {
+                clearTimeout(timer);
+                resolve(false);
+            };
+            img.onload = function () {
+                clearTimeout(timer);
+                resolve(true);
+            };
+            timer = setTimeout(function () {
+                img.src = "//!!!!/test.jpg";
+                resolve(false);
+            }, timeout);
+            img.src = url;
+        });
+    }
+
     function sellProduct() {
         notyf.success("Loading Sell Product Form")
         document.getElementById('mainFront').style.visibility = 'hidden'
         document.getElementById('SellProductForm').style.visibility = 'visible'
+    }
+
+    function goBack() {
+        document.getElementById('mainFront').style.visibility = 'visible';
+        document.getElementById('SellProductForm').style.visibility = 'hidden';
+    }
+
+    async function dashboardSellProduct() {
+        var title = document.getElementById('title').value
+        var description = document.getElementById('description').value
+        var price = parseInt(document.getElementById('price').value)
+        var image = document.getElementById('image').value
+        var category = document.getElementById('category').value
+
+        if (!(title, description, price, image, category)) {
+            notyf.error("Please Fill All The Fields")
+        } else if (isNaN(price)) {
+            console.log(price)
+            notyf.error("Please enter a valid integer of price in US DOLLARS")
+        } else if (image && !await testImage(image)) {
+            notyf.error(
+                "Unable to load the image. Please enter a valid image url that can be loaded on XSS server request."
+            )
+        } else {
+            var response = await fetch(
+                window.location.origin + '/retailer/sellForm', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        title,
+                        description,
+                        price,
+                        image,
+                        category
+                    }),
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8"
+                    }
+                }).then(response => {
+                return response.json()
+            })
+            if (await response.sucess == true) {
+                goBack();
+                notyf.success('Product Added Successfully To Website')
+            } else if (response.sucess != true, response.hasOwnProperty('error')) {
+                notyf.error(response.message)
+                notyf.error(response.error)
+            }
+
+            console.log(response)
+
+        }
     }
 </script>
