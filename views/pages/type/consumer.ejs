@@ -1,1 +1,16 @@
 <h1>This is Consumer Dashboard</h1>
+<form class="search-form" onclick="preventDefault();" action="/consumer/search_form" method="post">
+    <label for="query">Search Something</label>
+    <input type="text" id="query" name="query" class="query">
+</form>
+<%for (var i =0; i < products.length; i++) {%>
+<hr>
+<%=products[i].title%> <br><br>
+<%=products[i].description%> <br><br>
+<%=products[i].price%> <br><br>
+<%=products[i].category%> <br><br>
+Image is <%=products[i].image_%>
+<br>
+<%}%>
+
+
