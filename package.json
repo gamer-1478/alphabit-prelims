@@ -26,8 +26,10 @@
     "firebase": "^9.0.2",
     "firebase-admin": "^9.11.1",
     "flash": "^1.1.0",
+    "https": "^1.0.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.0.5",
+    "node-fetch": "^3.0.0",
     "notyf": "^3.10.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"

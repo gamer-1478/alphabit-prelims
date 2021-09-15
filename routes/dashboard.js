@@ -3,7 +3,12 @@ const router = express.Router()
 const { checkAuthenticated, checkNotAuthenticated } = require('../reusable/passport_reuse')
 
 router.get('/', checkAuthenticated, async (req, res) => {
-    res.render('pages/dashboard', {title:"Dashboard", user:req.user})
+    const user = req.user
+    if(user.type_of_user==true){
+            res.redirect('/retailer')
+    } else {
+        res.redirect('/consumer')
+    }
 })
 
 module.exports = router;

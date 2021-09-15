@@ -69,9 +69,13 @@ initializePassport(
 //deploying website stuff. such as app and router etc.
 const indexRoute = require('./routes/indexRoute')
 const dashboardRoute = require('./routes/dashboard')
+const consumerRoute = require('./routes/consumerRoute')
+const retailerRoute = require('./routes/retailerRoute')
 
 app.use('/', indexRoute)
 app.use('/dashboard', dashboardRoute)
+app.use('/consumer', consumerRoute)
+app.use('/retailer', retailerRoute)
 
 mongoose.connect(String(mongoURI), {
     useNewUrlParser: true,
