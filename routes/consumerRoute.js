@@ -5,15 +5,6 @@ const Product = require('../models/product')
 const { fetch_get } = require('../reusable/misc_reuse')
 const products = {}
 
-router.get('/', (req, res) => {
-    Product.find().then((result) => {
-        if (result.length) {
-            console.log(result)
-        }
-    })
-    res.render('pages/type/consumer', { "title": 'Consumer Dashboard', "user": req.user, "products": products })
-})
-
 /*router.get('/add_data', async (req, res) => {
     const response = await fetch_get('https://fakestoreapi.com/products/')
     await response.forEach(async element => {
