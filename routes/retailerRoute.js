@@ -31,28 +31,28 @@ router.post('/sellForm', checkAuthenticated, async (req, res) => {
 })
 
 router.get('/view_products', checkAuthenticated, async (req, res) => {
-    if (req.user.type_of_user==true){
-    var products_fire = await userCollection.doc(req.user.username).get()
-    products_fire = products_fire.data()
-    products_fire = products_fire.products
+    if (req.user.type_of_user == true) {
+        var products_fire = await userCollection.doc(req.user.username).get()
+        products_fire = products_fire.data()
+        products_fire = products_fire.products
 
-    if (products_fire.length != 0) {
-        var products = await Promise.all(products_fire.map(async (element, index, array) => {
-            return await Product.findById(element).then((result) => {
-                return (result)
+        if (products_fire.length != 0) {
+            var products = await Promise.all(products_fire.map(async (element, index, array) => {
+                return await Product.findById(element).then((result) => {
+                    return (result)
+                })
             })
-        })
-        ).then(result => {
-            return result
-        })
+            ).then(result => {
+                return result
+            })
 
-        res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, retailer_products: await products })
+            res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, retailer_products: await products })
+        }
+        else {
+            res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, retailer_products: [] })
+        }
     }
     else {
-        res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, retailer_products: [] })
-    }
-    }
-    else{
         res.redirect('/dashboard')
     }
 })
