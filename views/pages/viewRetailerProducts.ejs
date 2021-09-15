@@ -1,0 +1,43 @@
+<i class="fas fa-arrow-left" onclick="new function(){
+    window.location.href = window.location.origin + '/dashboard'}"></i>
+ 
+<% if (retailer_products.length!=0){ %>
+<% for(var i=0; i < retailer_products.length; i++) { %>
+<div style="margin: 20px;">
+    <p>Title : <%= retailer_products[i].title %></p>
+    <p>Description : <%= retailer_products[i].description %></p>
+    <p>category : <%= retailer_products[i].category %></p>
+    <p>price : <%= retailer_products[i].price %></p>
+    <button onclick="RemoveItem('<%= retailer_products[i].id %>')">Remove Item</button>
+</div>
+<% } %>
+<%}else{ %>
+
+<h1>Please Add Products In your Catalouge</h1>
+<%}%>
+<script>
+    var notyf = new Notyf();
+
+    async function RemoveItem(id) {
+        const resp = await fetch(window.location.origin + '/retailer/remove', {
+            method: 'POST',
+            body: JSON.stringify({
+                id:id
+            }),
+            headers: {
+            "Content-Type": "application/json; charset=utf-8"
+            }
+        }).then(async(response)=>{
+           var response_ = await response.json()
+            console.log(response_)
+            if (response_.success == true){
+                notyf.success(response_.message)
+                window.location.href = window.location.origin+'/dashboard'
+            }
+            else{
+                notyf.error(response_.message)
+                notyf.error(response_.error)
+            }
+        })
+    }
+</script>

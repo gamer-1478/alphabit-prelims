@@ -5,7 +5,7 @@
     </div>
 
     <div id='SellProductForm' style="visibility: hidden;">
-        <i class="fas fa-arrow-left" onclick="new function (){}"></i>
+        <i class="fas fa-arrow-left" onclick="goBack()"></i>
 
         <form class="sell-form" onsubmit="event.preventDefault(); dashboardSellProduct()">
             <label for="title">Enter Product Title</label>
@@ -33,8 +33,7 @@
     var notyf = new Notyf();
 
     async function seeListedProducts() {
-        var hmmm = await testImage('https://i.imgur.com/LvKN3cO.jpeg')
-        console.log(await hmmm)
+        window.location.href = window.location.origin + '/retailer/view_products'
     }
 
     async function testImage(url) {
@@ -78,7 +77,6 @@
         if (!(title, description, price, image, category)) {
             notyf.error("Please Fill All The Fields")
         } else if (isNaN(price)) {
-            console.log(price)
             notyf.error("Please enter a valid integer of price in US DOLLARS")
         } else if (image && !await testImage(image)) {
             notyf.error(
@@ -108,9 +106,6 @@
                 notyf.error(response.message)
                 notyf.error(response.error)
             }
-
-            console.log(response)
-
         }
     }
 </script>
