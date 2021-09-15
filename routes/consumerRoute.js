@@ -9,9 +9,9 @@ const products = {}
     const response = await fetch_get('https://fakestoreapi.com/products/')
     await response.forEach(async element => {
         var prod = new Product({ title: element.title, description: element.description, price: element.price, category:element.category, image_: element.image, rating: { rate: element.rating.rate, count: element.rating.count } })
-        await prod.save(function (err, book) {
+        await prod.save(function (err, prodcut) {
             if (err) return console.error(err);
-            console.log(book.name + " saved to bookstore collection.");
+            console.log(product.title + " saved to products collection.");
         });
     });
     res.send('hi')

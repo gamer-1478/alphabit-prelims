@@ -71,11 +71,14 @@ const indexRoute = require('./routes/indexRoute')
 const dashboardRoute = require('./routes/dashboard')
 const consumerRoute = require('./routes/consumerRoute')
 const retailerRoute = require('./routes/retailerRoute')
+const profileRoute = require('./routes/profile')
 
 app.use('/', indexRoute)
 app.use('/dashboard', dashboardRoute)
 app.use('/consumer', consumerRoute)
 app.use('/retailer', retailerRoute)
+app.use('/profile', profileRoute)
+
 
 mongoose.connect(String(mongoURI), {
     useNewUrlParser: true,

@@ -1,1 +1,46 @@
-<h1>This is Retailer Dashboard</h1>
+<div>
+    <div id="mainFront">
+        <button onclick="sellProduct()">Sell A New Product</button>
+        <button>See Your Listed Profucts</button>
+    </div>
+
+    <div id='SellProductForm' style="visibility: hidden;">
+        <i class="fas fa-arrow-left" onclick="new function (){
+                    document.getElementById('mainFront').style.visibility = 'visible';
+                    document.getElementById('SellProductForm').style.visibility = 'hidden';
+        }"></i>
+
+        <form class="sell-form" onsubmit="event.preventDefault(); dashboardSellProduct()">
+            <label for="title">Enter Product Title</label>
+            <input type="text" id="title" name="title" class="title"><br><br>
+
+            <label for="description">Enter Product Description</label>
+            <input type="text" id="description" name="description" class="description"><br><br>
+
+            <label for="price">Enter Product Price</label>
+            <input type="text" id="price" name="price" class="price"><br><br>
+
+            <label for="price">Enter Product Price</label>
+            <input type="text" id="price" name="price" class="price"><br><br>
+
+            <label for="image">Enter Product image link (it must end with .png or .jpg)</label>
+            <input type="text" id="image" name="image" class="image"><br><br>
+
+            <label for="category">Enter Product category</label>
+            <input type="text" id="category" name="category" class="category"><br><br>
+
+
+            <input type="submit" value="Add Product To Catalouge" class="sell-form-submit" id="sell-form-submit">
+        </form>
+    </div>
+</div>
+
+<script>
+    var notyf = new Notyf();
+
+    function sellProduct() {
+        notyf.success("Loading Sell Product Form")
+        document.getElementById('mainFront').style.visibility = 'hidden'
+        document.getElementById('SellProductForm').style.visibility = 'visible'
+    }
+</script>

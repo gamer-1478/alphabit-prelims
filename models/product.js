@@ -13,7 +13,7 @@ const productSchema = new Schema({
         'rate': reqNumber,
         'count': reqNumber
     }
-})
+}, { collection: 'products' })
 
 const Product = mongoose.model('Product', productSchema)
 module.exports = Product;

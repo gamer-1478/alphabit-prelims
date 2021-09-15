@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router()
 const { checkAuthenticated, checkNotAuthenticated } = require('../reusable/passport_reuse')
+const Product = require('../models/product')
+const { fetch_get } = require('../reusable/misc_reuse')
 
 router.get('/', checkAuthenticated, async (req, res) => {
 
     //user is of type retailer. 
     if (req.user.type_of_user == true) {
-        res.render('pages/type/retail', { "title": 'Retailer Dashboard', "user": req.user })
+        res.render('pages/type/retail', { "title": 'Retailer Dashboard', "user": req.user})
     }
 
     //if user is of type consumer
@@ -16,7 +18,7 @@ router.get('/', checkAuthenticated, async (req, res) => {
                 console.log(result.length)
             }
         })
-        res.render('pages/type/consumer', { "title": 'Consumer Dashboard', "user": req.user, "products": products })
+        res.render('pages/type/consumer', { "title": 'Consumer Dashboard', "user": req.user })
     }
 })
 
