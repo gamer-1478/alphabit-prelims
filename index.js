@@ -87,7 +87,7 @@ mongoose.connect(String(mongoURI), {
     console.log('Connected to Mongo DB')
 
     app.listen(PORT, err => {
-        console.log(`App listening on ${PORT}`)
+        console.log(`App listening on http://localhost:${PORT}`)
         if (err) throw  err
     })
 

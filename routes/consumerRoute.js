@@ -18,6 +18,7 @@ const userCollection = db.collection("users");
     });
     res.send('hi')
 })*/
+
 router.get('/',(req,res)=>{
     Product.find().then((result) => {
         const products = result
