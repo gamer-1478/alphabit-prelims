@@ -1,5 +1,7 @@
-<h1>This is Consumer Dashboard</h1>
-<form class="search-form" onclick="preventDefault();" action="/consumer/search_form" method="post">
+<h1 onclick="new function(){
+    window.location.href = window.location.origin+'/consumer';
+}">Dashboard</h1>
+<form class="search-form" onclick="preventDefault();" action="/consumer" method="post">
     <label for="query">Search Something</label>
     <input type="text" id="query" name="query" class="query">
 </form>
@@ -9,7 +11,7 @@
 <%=products[i].description%> <br><br>
 <%=products[i].price%> <br><br>
 <%=products[i].category%> <br><br>
-Image is <%=products[i].image_%>
+Image is <%=products[i]['image_']%>
 <form action="/consumer/add_to_cart" method="post">
     <input value="<%=products[i].title%>" id="title" name="title" hidden>
     <label for="count">Number</label>

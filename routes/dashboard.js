@@ -13,13 +13,7 @@ router.get('/', checkAuthenticated, async (req, res) => {
 
     //if user is of type consumer
     else {
-        Product.find().then((result) => {
-            const products = result
-            for (var j = 0; j < products.length; j++) {
-            }
-            res.render('pages/type/consumer', { "title": 'Consumer Dashboard', "user": req.user, "products":products })
-        })
-
+        res.redirect('/consumer')
     }
 })
 

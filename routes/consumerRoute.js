@@ -18,8 +18,17 @@ const userCollection = db.collection("users");
     });
     res.send('hi')
 })*/
+router.get('/',(req,res)=>{
+    Product.find().then((result) => {
+        const products = result
+        for (var j = 0; j < products.length; j++) {
+        }
+        res.render('pages/type/consumer', { "title": 'Consumer Dashboard', "user": req.user, "products": products })
+    })
 
-router.post('/search_form', ((req, res) => {
+})
+
+router.post('/', ((req, res) => {
 const query = req.body.query;
 Product.find({$or: [{title:{'$regex': query, "$options": "i"}}, {description: {'$regex': query, "$options":"i"}}]}).then((result)=> {
     const products = result;
