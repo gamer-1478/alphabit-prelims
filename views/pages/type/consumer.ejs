@@ -8,17 +8,25 @@
 <%for (var i =0; i < products.length; i++) {%>
 <hr>
 
-<img src="<%=products[i]['image_']%>" style="height: 100px; width:100px;" />
-<h3><%=products[i].title%></h3>
-<p>Description : <%=products[i].description%></p>
-<p> $ : <%=products[i].price%></p>
-<p>Category : <%=products[i].category%></p>
+<div onclick="Redirect('<%= products[i]._id %>')">
+    <img src="<%=products[i]['image_']%>" style="height: 100px; width:100px;" />
+    <h3><%=products[i].title%></h3>
+    <p>Description : <%=products[i].description%></p>
+    <p> $ : <%=products[i].price%></p>
+    <p>Category : <%=products[i].category%></p>
+</div>
 
 <form action="/consumer/add_to_cart" method="post">
     <input value="<%=products[i].title%>" id="title" name="title" hidden>
-    <label for="count">Number</label>
+    <label for="count">Quantity</label>
     <input type="number" id="count" name="count" value="1">
     <button type="submit">Add to Cart</button>
 </form>
 <br>
 <%}%>
+
+<script>
+    function Redirect(back){
+        window.location.href = window.location.origin+`/consumer/product/${back}`
+    }
+</script>

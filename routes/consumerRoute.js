@@ -4,6 +4,7 @@ const { checkAuthenticated, checkNotAuthenticated } = require('../reusable/passp
 const Product = require('../models/product')
 const { fetch_get } = require('../reusable/misc_reuse')
 const admin = require("../firebase");
+const { route } = require('./retailerRoute');
 const db = admin.firestore();
 const userCollection = db.collection("users");
 
@@ -19,7 +20,7 @@ const userCollection = db.collection("users");
     res.send('hi')
 })*/
 
-router.get('/',(req,res)=>{
+router.get('/', (req, res) => {
     Product.find().then((result) => {
         const products = result
         for (var j = 0; j < products.length; j++) {
@@ -30,33 +31,41 @@ router.get('/',(req,res)=>{
 })
 
 router.post('/', ((req, res) => {
-const query = req.body.query;
-Product.find({$or: [{title:{'$regex': query, "$options": "i"}}, {description: {'$regex': query, "$options":"i"}}]}).then((result)=> {
-    const products = result;
+    const query = req.body.query;
+    Product.find({ $or: [{ title: { '$regex': query, "$options": "i" } }, { description: { '$regex': query, "$options": "i" } }] }).then((result) => {
+        const products = result;
 
-    res.render('pages/type/consumer', {title: 'Consumer Dashboard', user:req.user, products:products})
-})
+        res.render('pages/type/consumer', { title: 'Consumer Dashboard', user: req.user, products: products })
+    })
 }))
 
-router.post('/add_to_cart', async (req, res) =>{
+router.get('/product/:backlink', async (req, res) => {
+    var backlink = req.params.backlink
+    Product.findById(backlink).then((result)=>{
+        res.render('pages/product', {title:result.title, product:result})
+        console.log(result)
+    }).catch((error)=>{if (error) console.log(error)})
+})
+
+router.post('/add_to_cart', async (req, res) => {
     var count = parseInt(req.body.count)
     const name = req.body.title
-    Product.findOne({title:name}).then(async (result)=> {
+    Product.findOne({ title: name }).then(async (result) => {
         var title = result['title']
         var price = result['price']
         var image_ = result['image_']
         var product = {
             title: title,
             price: price,
-            image_:image_,
-            count:count
+            image_: image_,
+            count: count
         }
         await userCollection.doc(req.user.username).update({
             cart: admin.firestore.FieldValue.arrayUnion(product)
-        }).then((resp)=> {
+        }).then((resp) => {
             console.log('Added to cart')
             res.redirect('/dashboard')
-        }).catch((err)=> {
+        }).catch((err) => {
             console.log(err)
         })
     })

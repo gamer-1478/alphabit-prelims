@@ -1,0 +1,23 @@
+<h1 onclick="new function(){
+    window.location.href = window.location.origin+'/consumer';
+}">Dashboard</h1>
+
+<form class="search-form" onclick="preventDefault();" action="/consumer" method="post">
+    <label for="query">Search Something</label>
+    <input type="text" id="query" name="query" class="query">
+</form>
+
+<img src="<%=product['image_']%>" style="height: 400px; width:400px;" />
+<h2><%=product.title%></h2>
+<h3>Description : <%=product.description%></h3>
+<h3>USD$ : <%=product.price%></h3>
+<p>Category : <%=product.category%></p>
+<p>Rating : <%= product.rating.rate %> </p>
+<p>Verified Reviewers : <%= product.rating.count %> </p>
+
+<form action="/consumer/add_to_cart" method="post">
+    <input value="<%=product.title%>" id="title" name="title" hidden>
+    <label for="count">Quantity</label>
+    <input type="number" id="count" name="count" value="1">
+    <button type="submit">Add to Cart</button>
+</form>
