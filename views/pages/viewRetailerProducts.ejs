@@ -1,14 +1,17 @@
 <i class="fas fa-arrow-left" onclick="new function(){
     window.location.href = window.location.origin + '/dashboard'}"></i>
- 
+
 <% if (retailer_products.length!=0){ %>
 <% for(var i=0; i < retailer_products.length; i++) { %>
+<hr>
 <div style="margin: 20px;">
+    <img src="<%=retailer_products[i]['image_']%>" style="height: 100px; width:100px;" />
+
     <p>Title : <%= retailer_products[i].title %></p>
     <p>Description : <%= retailer_products[i].description %></p>
-    <p>category : <%= retailer_products[i].category %></p>
-    <p>price : <%= retailer_products[i].price %></p>
-    <button onclick="RemoveItem('<%= retailer_products[i].id %>')">Remove Item</button>
+    <p>Category : <%= retailer_products[i].category %></p>
+    <p>Price : $ <%= retailer_products[i].price %></p>
+    <button onclick="RemoveItem('<%= retailer_products[i].id %>')">Stop Selling Item</button>
 </div>
 <% } %>
 <%}else{ %>
