@@ -24,8 +24,12 @@ router.post('/sellForm', checkAuthenticated, async (req, res) => {
             products.products = []
             products.products.push(product.id)
         }
-        await userCollection.doc(req.user.username).set(products).then((results) => {
+        await userCollection.doc(req.user.username).update({products : products.products}).then((results) => {
             res.send({ message: 'Product Added Successfully', sucess: true })
+        }).catch((error)=>{
+            if(error){
+                console.log(error)
+            }
         })
     });
 })
@@ -66,17 +70,13 @@ router.post('/remove', checkAuthenticated, async (req, res) => {
         else {
             var resp_fire = await userCollection.doc(req.user.username).get()
             resp_fire = resp_fire.data()
-            resp_fire_products = resp_fire.products
+            resp_fire_products = resp_fire.products;
 
-            resp_fire.products.splice(resp_fire_products.indexOf(req.body.id), 1);
-            await userCollection.doc(req.user.username).set(resp_fire).then((responce, error) => {
-                if (error) {
-                    console.log(error, responce)
-                }
-
+            resp_fire_products.splice(resp_fire_products.indexOf(req.body.id), 1);
+            await userCollection.doc(req.user.username).update({ products: resp_fire_products }).then((responce) => {
                 res.send({ success: true, error: '', message: 'Deleted Successfully' })
-
-
+            }).catch((error) => {
+                if (error) { console.log(error) }
             })
         }
     })
