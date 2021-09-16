@@ -5,6 +5,7 @@ const Product = require('../models/product')
 const { fetch_get } = require('../reusable/misc_reuse')
 const admin = require("../firebase");
 const { route } = require('./retailerRoute');
+const e = require('express');
 const db = admin.firestore();
 const userCollection = db.collection("users");
 
@@ -20,7 +21,7 @@ const userCollection = db.collection("users");
     res.send('hi')
 })*/
 
-router.get('/', (req, res) => {
+router.get('/', checkAuthenticated, (req, res) => {
     Product.find().then((result) => {
         const products = result
         for (var j = 0; j < products.length; j++) {
@@ -30,7 +31,7 @@ router.get('/', (req, res) => {
 
 })
 
-router.post('/', ((req, res) => {
+router.post('/', checkAuthenticated, ((req, res) => {
     const query = req.body.query;
     Product.find({ $or: [{ title: { '$regex': query, "$options": "i" } }, { description: { '$regex': query, "$options": "i" } }] }).then((result) => {
         const products = result;
@@ -39,41 +40,70 @@ router.post('/', ((req, res) => {
     })
 }))
 
-router.get('/product/:backlink', async (req, res) => {
+router.get('/product/:backlink', checkAuthenticated, async (req, res) => {
     var backlink = req.params.backlink
-    Product.findById(backlink).then((result)=>{
-        res.render('pages/product', {title:result.title, product:result})
-        console.log(result)
-    }).catch((error)=>{if (error) console.log(error)})
+    Product.findById(backlink).then((result) => {
+        res.render('pages/product', { title: result.title, product: result })
+    }).catch((error) => { if (error) console.log(error) })
 })
 
-router.post('/add_to_cart', async (req, res) => {
+router.post('/add_to_cart', checkAuthenticated, async (req, res) => {
     var count = parseInt(req.body.count)
-    const name = req.body.title
-    Product.findOne({ title: name }).then(async (result) => {
-        var title = result['title']
-        var price = result['price']
-        var image_ = result['image_']
-        var product = {
-            title: title,
-            price: price,
-            image_: image_,
-            count: count
-        }
-        await userCollection.doc(req.user.username).update({
-            cart: admin.firestore.FieldValue.arrayUnion(product)
-        }).then((resp) => {
-            console.log('Added to cart')
-            res.redirect('/dashboard')
-        }).catch((err) => {
-            console.log(err)
-        })
-    })
-    // await userCollection.doc(req.body.username).set({
-    //
-    // })
+    const id = req.body.id
+    console.log(id)
+    Product.findById(id).then(async (result) => {
+        await userCollection.doc(req.user.username).get().then(async (result_fire) => {
+            result_fire = result_fire.data()
 
+            console.log(result_fire.cart.length)
+            if (result_fire.cart.length > 0) {
+                for (var i = 0; i < result_fire.cart.length; ++i) {
+                    var result_fir = result_fire.cart[i]
+                    if (await result_fir._id == id) {
+                        console.log("found product, adding to count")
+                        result.count = result_fir.count + count
+                        result_fire.cart[i] = result
+                        await userCollection.doc(req.user.username).set(JSON.parse(JSON.stringify(result_fire))).then((resp) => {
+                            console.log('Added to cart')
+                            res.redirect('/consumer/product/' + result.id)
+                        }).catch((err) => {
+                            console.log(err)
+                        })
+                        break
+                    }
+                    else if (i == result_fire.cart.length - 1) {
+                        result.count = count
+                        await userCollection.doc(req.user.username).update({
+                            cart: admin.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(result)))
+                        }).then((resp) => {
+                            console.log('Added to cart')
+                            res.redirect('/consumer/product/' + result.id)
+                        }).catch((err) => {
+                            console.log(err)
+                        })
+                    }
+                    else {
+                        continue
+                    }
+                }
+            }
+            else {
+                result.count = count
+                console.log(result)
+                await userCollection.doc(req.user.username).update({
+                    cart: admin.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(result)))
+                }).then((resp) => {
+                    console.log('Added to cart')
+                    res.redirect('/consumer/product/' + result.id)
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
+        });
+    })
 })
 
+router.get('/cart', async (req, res) => {
 
+})
 module.exports = router;

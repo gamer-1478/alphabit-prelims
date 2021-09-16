@@ -3,7 +3,7 @@
 }">Dashboard</h1>
 
 <form class="search-form" onclick="preventDefault();" action="/consumer" method="post">
-    <label for="query">Search Something</label>
+    <label for="query">Product Search</label>
     <input type="text" id="query" name="query" class="query">
 </form>
 
@@ -16,7 +16,7 @@
 <p>Verified Reviewers : <%= product.rating.count %> </p>
 
 <form action="/consumer/add_to_cart" method="post">
-    <input value="<%=product.title%>" id="title" name="title" hidden>
+    <input value="<%=product._id%>" id="id" name="id" hidden>
     <label for="count">Quantity</label>
     <input type="number" id="count" name="count" value="1">
     <button type="submit">Add to Cart</button>
