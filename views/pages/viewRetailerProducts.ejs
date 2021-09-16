@@ -29,7 +29,6 @@
             }
         }).then(async(response)=>{
            var response_ = await response.json()
-            console.log(response_)
             if (response_.success == true){
                 notyf.success(response_.message)
                 window.location.href = window.location.origin+'/dashboard'

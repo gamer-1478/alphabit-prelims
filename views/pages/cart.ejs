@@ -1,0 +1,66 @@
+<h1 onclick="new function(){
+    window.location.href = window.location.origin+'/consumer';}">
+    Dashboard
+</h1>
+<% if (user.cart.length >0) {%>
+<button>Checkout</button>
+<%for (var i =0; i < user.cart.length; i++) {%>
+<hr>
+
+<div>
+    <div onclick="Redirect('<%= user.cart[i]._id %>')">
+        <img src="<%=user.cart[i]['image_']%>" style="height: 100px; width:100px;" />
+        <h3><%=user.cart[i].title%></h3>
+        <p>Description : <%=user.cart[i].description%></p>
+    </div>
+    <p> $ : <%=user.cart[i].price%></p>
+    <p>Category : <%=user.cart[i].category%></p>
+    <p>Quantity : <%= user.cart[i].count %> </p>
+
+    <form action="/consumer/update_quan_cart" method="post">
+        <input value="<%=user.cart[i]._id%>" id="id" name="id" hidden>
+        <label for="count">Quantity</label>
+        <input type="number" id="count" name="count" value="<%= user.cart[i].count %>" min="0" max='10'>
+        <button type="submit">Update Cart Quantity</button>
+    </form>
+
+    <button onclick="DeleteProduct('<%=user.cart[i]._id%>')">Delete Product From Cart</button>
+
+</div>
+
+<br>
+<%}%>
+<% } else { %>
+<h1>Add Products To Cart To Get Started</h1>
+<% } %>
+
+<script>
+    var notyf = new Notyf();
+
+    function Redirect(back) {
+        window.location.href = window.location.origin + `/consumer/product/${back}`
+    }
+
+    async function DeleteProduct(id) {
+        var response = await fetch('/consumer/update_quan_cart', {
+            method: "POST",
+            redirect: 'follow',
+            body: JSON.stringify({
+                id: id,
+                count: 0,
+            }),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            },
+
+        }).then(response => {
+            if (response.redirected) {
+                notyf.success("Product Deleted Successfully from Cart")
+                window.location.href = response.url;
+            } else {
+                response = response.json()
+                notyf.error(response.message)
+            }
+        })
+    }
+</script>

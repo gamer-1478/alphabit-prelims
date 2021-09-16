@@ -6,6 +6,7 @@ const { fetch_get } = require('../reusable/misc_reuse')
 const admin = require("../firebase");
 const { route } = require('./retailerRoute');
 const e = require('express');
+const { exists } = require('../models/product');
 const db = admin.firestore();
 const userCollection = db.collection("users");
 
@@ -50,22 +51,20 @@ router.get('/product/:backlink', checkAuthenticated, async (req, res) => {
 router.post('/add_to_cart', checkAuthenticated, async (req, res) => {
     var count = parseInt(req.body.count)
     const id = req.body.id
-    console.log(id)
     Product.findById(id).then(async (result) => {
         await userCollection.doc(req.user.username).get().then(async (result_fire) => {
             result_fire = result_fire.data()
 
-            console.log(result_fire.cart.length)
             if (result_fire.cart.length > 0) {
                 for (var i = 0; i < result_fire.cart.length; ++i) {
                     var result_fir = result_fire.cart[i]
                     if (await result_fir._id == id) {
                         console.log("found product, adding to count")
-                        result.count = result_fir.count + count
+                        result.count = count
                         result_fire.cart[i] = result
                         await userCollection.doc(req.user.username).set(JSON.parse(JSON.stringify(result_fire))).then((resp) => {
                             console.log('Added to cart')
-                            res.redirect('/consumer/product/' + result.id)
+                            res.redirect('/consumer/cart')
                         }).catch((err) => {
                             console.log(err)
                         })
@@ -77,7 +76,7 @@ router.post('/add_to_cart', checkAuthenticated, async (req, res) => {
                             cart: admin.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(result)))
                         }).then((resp) => {
                             console.log('Added to cart')
-                            res.redirect('/consumer/product/' + result.id)
+                            res.redirect('/consumer/cart')
                         }).catch((err) => {
                             console.log(err)
                         })
@@ -89,12 +88,11 @@ router.post('/add_to_cart', checkAuthenticated, async (req, res) => {
             }
             else {
                 result.count = count
-                console.log(result)
                 await userCollection.doc(req.user.username).update({
                     cart: admin.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(result)))
                 }).then((resp) => {
                     console.log('Added to cart')
-                    res.redirect('/consumer/product/' + result.id)
+                    res.redirect('/consumer/cart')
                 }).catch((err) => {
                     console.log(err)
                 })
@@ -103,7 +101,56 @@ router.post('/add_to_cart', checkAuthenticated, async (req, res) => {
     })
 })
 
-router.get('/cart', async (req, res) => {
+router.post('/update_quan_cart', checkAuthenticated, async (req, res) => {
+    var count = parseInt(req.body.count)
+    const id = req.body.id
+    Product.findById(id).then(async (result) => {
+        await userCollection.doc(req.user.username).get().then(async (result_fire) => {
+            result_fire = result_fire.data()
 
+            if (result_fire.cart.length > 0) {
+                for (var i = 0; i < result_fire.cart.length; ++i) {
+                    var result_fir = result_fire.cart[i]
+                    if (await result_fir._id == id) {
+                        console.log("found product, removing quantity from cart to count")
+                        result.count = count
+                        if (result.count > 0) {
+                            result_fire.cart[i] = result
+                            await userCollection.doc(req.user.username).set(JSON.parse(JSON.stringify(result_fire))).then((resp) => {
+                                console.log('Added to cart')
+                                res.redirect('/consumer/cart')
+                            }).catch((err) => {
+                                console.log(err)
+                            })
+                        }
+                        else {
+                            result_fire.cart.splice(i, 1);
+                            await userCollection.doc(req.user.username).set(JSON.parse(JSON.stringify(result_fire))).then((resp) => {
+                                console.log('Added to cart')
+                                res.redirect('/consumer/cart')
+                            }).catch((err) => {
+                                console.log(err)
+                            })
+
+                        }
+                        break
+                    }
+                    else if (i == result_fire.cart.length - 1) {
+                        res.send({ message: "Product doesn't exist in the server, thats WEIRD", success: false })
+                    }
+                    else {
+                        continue
+                    }
+                }
+            }
+            else {
+                res.send({ message: "Product doesn't exist in the server, thats WEIRD", success: false })
+            }
+        });
+    })
+
+})
+router.get('/cart', checkAuthenticated, async (req, res) => {
+    res.render('pages/cart.ejs', { title: "Cart", user: req.user })
 })
 module.exports = router;
