@@ -1,0 +1,20 @@
+<h2>Order Details</h2>
+<h3>Total Cost : $<%=product.total  %></h3>
+<h4>Adress :
+    <%=product.address + '\n' + product.city + '\n' + product.state + '\n' +product.pin%>
+</h4>
+<h4>Card Used : <%= product.cc %></h4>
+</div>
+
+<%for (var a =0; a < product.order.length; a++) {%>
+<div id='<%= product.order_id %>'>
+    <hr>
+    <h4>Item Number <%= a+1 %> </h4>
+    <img src="<%=product.order[a]['image_']%>" style="height: 100px; width:100px;" />
+    <h3><%=product.order.title%></h3>
+    <p> Price : $ <%=product.order[a].price%></p>
+    <p>Quantity : <%= product.order[a].count %> </p>
+    <p>Product Total : $ <%= product.order[a].count*product.order[a].price %> </p>
+    <br>
+</div>
+<%}%>

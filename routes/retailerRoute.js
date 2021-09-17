@@ -54,7 +54,17 @@ router.get('/view_products', checkAuthenticated, async (req, res) => {
 
         if (products_fire.length != 0) {
             var products = await Promise.all(products_fire.map(async (element, index, array) => {
-                return await Product.findById(element).then((result) => {
+                return await Product.findById(element).then((result, error) => {
+                    if (error){
+                        console.log(error)
+                        res.send("ran into error", error)
+
+                    }
+                    if(result == null){
+                        res.send({message:"ran into error", result:result,element })
+
+                    }
+
                     return (result)
                 })
             })
@@ -73,6 +83,10 @@ router.get('/view_products', checkAuthenticated, async (req, res) => {
     }
 })
 
+
+router.get('/view_products_sold', checkAuthenticated, async(req,res)=>{
+    
+})
 router.post('/remove', checkAuthenticated, async (req, res) => {
     Product.findById(req.body.id).remove().then(async (resp, err) => {
         if (err) {

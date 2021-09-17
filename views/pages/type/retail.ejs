@@ -2,6 +2,7 @@
     <div id="mainFront">
         <button onclick="sellProduct()">Sell A New Product</button>
         <button onclick="seeListedProducts()">See Your Listed Products</button>
+        <button onclick="seeSoldProducts()">See Your Listed Products</button>
     </div>
 
     <div id='SellProductForm' style="visibility: hidden;">
@@ -38,6 +39,10 @@
     async function seeListedProducts() {
         window.location.href = window.location.origin + '/retailer/view_products'
     }
+    async function seeSoldProducts() {
+        window.location.href = window.location.origin + '/retailer/view_products_sold'
+    }
+
 
     async function testImage(url) {
         return new Promise(function (resolve, reject) {

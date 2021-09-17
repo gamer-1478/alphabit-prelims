@@ -4,10 +4,11 @@ const { checkAuthenticated, checkNotAuthenticated } = require('../reusable/passp
 const Product = require('../models/product')
 const { fetch_get } = require('../reusable/misc_reuse')
 const admin = require("../firebase");
+const { compareSync } = require('bcrypt');
+const { where } = require('../models/product');
 const db = admin.firestore();
 const userCollection = db.collection("users");
 
-let {name, address_1, address_2, city, state, country, pin ,cc} = ""
 
 /*router.get('/add_data', async (req, res) => {
     const response = await fetch_get('https://fakestoreapi.com/products/')
@@ -51,7 +52,7 @@ router.post('/add_to_cart', checkAuthenticated, async (req, res) => {
     var count = parseInt(req.body.count)
     const id = req.body.id
     Product.findById(id).then(async (result) => {
-        if (count > 0 && result.quan > count) {
+        if (count > 0 && result.quan >= count) {
             await userCollection.doc(req.user.username).get().then(async (result_fire) => {
                 result_fire = result_fire.data()
 
@@ -161,49 +162,119 @@ router.get('/cart', checkAuthenticated, async (req, res) => {
 
 router.get('/checkout', checkAuthenticated, async (req, res) => {
     total_price = 0
-    if(req.user.cart.length){
+    if (req.user.cart.length) {
         cart = req.user.cart
 
-        for (var i=0; i < cart.length; i++){
+        for (var i = 0; i < cart.length; i++) {
             price = cart[i].price
             quantity = cart[i].count
-            total_price += (price*quantity)
+            total_price += (price * quantity)
         }
     }
-    res.render('pages/checkout', {title:"Checkout", user:req.user, total:total_price})
+    res.render('pages/checkout', { title: "Checkout", user: req.user, total: total_price })
 })
 
-router.post('/checkout', checkAuthenticated, async (req, res)=> {
+router.post('/checkout', checkAuthenticated, async (req, res) => {
+    let { name, address_1, address_2, city, state, country, pin, cc } = ""
     name = req.body.name
-    address_1= req.body.address_1
+    address_1 = req.body.address_1
     address_2 = req.body.address_2
     city = req.body.city
     state = req.body.state
     country = req.body.country
     pin = req.body.pin
     cc = req.body.cc
-
+    order_id = makeid(20)
     //quantity removal
-    cart = req.user.cart
+    let cart = req.user.cart
     for (var i = 0; i < cart.length; i++) {
         count = cart[i].count
         id = cart[i]._id
-        Product.findByIdAndUpdate(id, {$inc: {"quan": -count}}).then((result)=> {
+        let cart_new = cart[i]
+
+        Product.findByIdAndUpdate(id, { $inc: { "quan": -count } }).then(async (result) => {
+            await userCollection.where('id', '==', result.seller_id).get().then(async (result_fire) => {
+                var result_fire = result_fire.docs[0].data()
+                await userCollection.doc(result_fire.username).update({
+                    retailer_orders: admin.firestore.FieldValue.arrayUnion(
+                        {
+                            name: name,
+                            address: address_1 + "\n" + address_2,
+                            city: city,
+                            state: state,
+                            country: country,
+                            pin: pin,
+                            product_id: result.id,
+                            product: cart_new,
+                            count: count,
+                            email: req.user.email,
+                            order_id: order_id
+
+                        })
+                }).then((res_fire) => {
+                    console.log("Seller Informed of the Order")
+                })
+            })
             console.log('Product quantity decreased')
         })
-
     }
+
+    total_price = 0
+    for (var i = 0; i < cart.length; i++) {
+        price = cart[i].price
+        quantity = cart[i].count
+        total_price += (price * quantity)
+    }
+
+    res.render('pages/summary', { order_id: order_id, pin: pin, total: total_price, cart: cart, title: 'Order Summary', name: name, address_1: address_1, address_2: address_2, city: city, state: state, country: country, cc: cc })
+
     userCollection.doc(req.user.username).update({
+        orders: admin.firestore.FieldValue.arrayUnion({ order_id: order_id, pin: pin, order: cart, total: total_price, name: name, address: address_1 + '\n' + address_2, city: city, state: state, country: country, cc: cc })
+    }).then((result) => {
+        console.log('Order added In Consumer Orders')
+        userCollection.doc(req.user.username).update({
             cart: []
-        }).then((result)=> {
+        }).then((result) => {
             console.log('Cart Cleared')
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err)
         })
-    res.redirect('/consumer/summary')
-
+    }).catch((err) => {
+        console.log(err)
+    })
 })
-router.get('/summary', checkAuthenticated, ((req, res, next) => {
-res.render('pages/summary', {title:'Order Summary',name:name, address_1:address_1, address_2:address_2, city:city, state:state, country:country, cc:cc})
-}))
+
+router.get('/my_orders', checkAuthenticated, async (req, res) => {
+    res.render('pages/my_orders', { title: "My Orders", user: req.user, products: req.user.orders })
+})
+
+router.get('/my_orders/:backlink', checkAuthenticated, async (req, res) => {
+    let number = req.params.backlink
+    if (number.length > 0 && !isNaN(number)) {
+        let product = req.user.orders[number]
+        console.log(typeof (product) != 'undefined' && product.hasOwnProperty('cc'))
+        if (typeof (product) != 'undefined' && product.hasOwnProperty('cc')) {
+            //res.send(req.body)
+            res.render('pages/my_order_detailed', { title: "Detailed Order View", product: req.user.orders[number] })
+        }
+        else{
+            res.render('pages/404', {title:"404 Not Found"})
+        }
+    }
+    else {
+        res.redirect('/my_orders')
+    }
+})
+
+function makeid(length) {
+    var result = "";
+    var characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
 module.exports = router;

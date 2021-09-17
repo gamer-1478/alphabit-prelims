@@ -1,10 +1,33 @@
-<h1>Successfully Place Order</h1>
-<p><%=name%></p><br>
-<p><%=address_1%></p><br>
-<p><%=address_2%></p><br>
-<p><%=city%></p><br>
-<p><%=state%></p><br>
-<p><%=country%></p><br>
-<p><%=cc%></p><br>
+<h1>Successfully Placed Order</h1>
+<p>Name : <%=name%></p>
+<h3>Adress : </h3>
+<p>Line 1 : <%=address_1%></p>
+<p>Line 2 : <%=address_2%></p>
+<p>City : <%=city%></p>
+<p>State : <%=state%></p>
+<p>Country : <%=country%></p>
+<p>Card Number : <%=cc%></p>
 
 
+<h1>Products Ordered</h1>
+<%for (var i =0; i < cart.length; i++) {%>
+<hr>
+
+<div>
+    <div>
+        <img src="<%=cart[i]['image_']%>" style="height: 100px; width:100px;" />
+        <h3><%=cart[i].title%></h3>
+    </div>
+    <p>Price : $ <%=cart[i].price%></p>
+    <p>Category : <%=cart[i].category%></p>
+    <p>Quantity : <%= cart[i].count %> </p>
+    <p>Product Total : $ <%=cart[i].count*cart[i].price %> </p>
+
+</div>
+<br>
+<%}%>
+<h2>Total Price: <%=total%></h2>
+
+<button onclick="new function(){
+    window.location.href = window.location.origin + '/consumer/my_orders'
+}">Continue To Site --></button>

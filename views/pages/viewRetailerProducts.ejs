@@ -1,9 +1,13 @@
 <i class="fas fa-arrow-left" onclick="new function(){
     window.location.href = window.location.origin + '/dashboard'}"></i>
 
+
+
 <% if (retailer_products.length!=0){ %>
 <% for(var i=0; i < retailer_products.length; i++) { %>
+
 <hr>
+
 <div style="margin: 20px;">
     <img src="<%=retailer_products[i]['image_']%>" style="height: 100px; width:100px;" />
 
@@ -14,6 +18,7 @@
     <p>Quantity Left : <%= retailer_products[i].quan %></p>
     <button onclick="RemoveItem('<%= retailer_products[i].id %>')">Stop Selling Item</button>
 </div>
+
 <% } %>
 <%}else{ %>
 

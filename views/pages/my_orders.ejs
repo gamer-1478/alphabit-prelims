@@ -1,0 +1,31 @@
+<h1 onclick="new function(){
+    window.location.href = window.location.origin+'/consumer';}">
+    Dashboard
+</h1>
+
+<% if (products.length>0){ %>
+<%for (var i =0; i < products.length; i++) {%>
+<div onclick="RedirectToDetailed('<%= i %>')">
+    <hr />
+    <h2>Order No. <%= i+1 %> - Details</h2>
+    <h3>Total Cost : $<%=products[i].total %></h3>
+    <h4>
+        Adress : <%=products[i].address + '\n' + products[i].city + '\n' +
+    products[i].state + '\n' +products[i].pin%>
+    </h4>
+    <h4>Card Used : <%= products[i].cc %></h4>
+</div>
+<%}%> 
+<%}else{%>
+<h2>Please Buy Products To Get Started</h2>
+<% } %>
+<script>
+    async function RedirectToDetailed(did) {
+        window.location.href =
+            window.location.origin + `/consumer/my_orders/${did}`;
+    }
+
+    function Redirect(back) {
+        window.location.href = window.location.origin + `/consumer/product/${back}`;
+    }
+</script>

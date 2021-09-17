@@ -40,7 +40,7 @@ async function indexSignup() {
                                 }
                             })
                         )
-                        
+
                         //if register was successfull, we try automatic login and go whereever it redirects us.
                         if (response.success === true) {
                             notyf.success(response.message)
