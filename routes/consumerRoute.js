@@ -158,6 +158,14 @@ router.get('/cart', checkAuthenticated, async (req, res) => {
 })
 
 router.get('/checkout', checkAuthenticated, async (req, res) => {
-    res.render('pages/checkout', {title:"Checkout", user:req.user})
+    var total = 0;
+    await req.user.cart.forEach((element, id) => {
+        total = total + (element.count * element.price)
+
+        if (id == req.user.cart.length-1){
+            res.render('pages/checkout', { title: "Checkout", user: req.user, total: total })
+        }
+        
+    });
 })
 module.exports = router;
