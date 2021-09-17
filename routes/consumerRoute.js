@@ -7,6 +7,8 @@ const admin = require("../firebase");
 const db = admin.firestore();
 const userCollection = db.collection("users");
 
+let {name, address_1, address_2, city, state, country, pin ,cc} = ""
+
 /*router.get('/add_data', async (req, res) => {
     const response = await fetch_get('https://fakestoreapi.com/products/')
     await response.forEach(async element => {
@@ -158,6 +160,50 @@ router.get('/cart', checkAuthenticated, async (req, res) => {
 })
 
 router.get('/checkout', checkAuthenticated, async (req, res) => {
-    res.render('pages/checkout', {title:"Checkout", user:req.user})
+    total_price = 0
+    if(req.user.cart.length){
+        cart = req.user.cart
+
+        for (var i=0; i < cart.length; i++){
+            price = cart[i].price
+            quantity = cart[i].count
+            total_price += (price*quantity)
+        }
+    }
+    res.render('pages/checkout', {title:"Checkout", user:req.user, total:total_price})
 })
+
+router.post('/checkout', checkAuthenticated, async (req, res)=> {
+    name = req.body.name
+    address_1= req.body.address_1
+    address_2 = req.body.address_2
+    city = req.body.city
+    state = req.body.state
+    country = req.body.country
+    pin = req.body.pin
+    cc = req.body.cc
+
+    //quantity removal
+    cart = req.user.cart
+    for (var i = 0; i < cart.length; i++) {
+        count = cart[i].count
+        id = cart[i]._id
+        Product.findByIdAndUpdate(id, {$inc: {"quan": -count}}).then((result)=> {
+            console.log('Product quantity decreased')
+        })
+
+    }
+    userCollection.doc(req.user.username).update({
+            cart: []
+        }).then((result)=> {
+            console.log('Cart Cleared')
+        }).catch((err)=>{
+            console.log(err)
+        })
+    res.redirect('/consumer/summary')
+
+})
+router.get('/summary', checkAuthenticated, ((req, res, next) => {
+res.render('pages/summary', {title:'Order Summary',name:name, address_1:address_1, address_2:address_2, city:city, state:state, country:country, cc:cc})
+}))
 module.exports = router;
