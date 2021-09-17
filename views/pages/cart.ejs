@@ -3,7 +3,9 @@
     Dashboard
 </h1>
 <% if (user.cart.length >0) {%>
-<button>Checkout</button>
+<button onclick="new function(){
+    window.location.href = window.location.origin+'/consumer/checkout'
+}">Checkout</button>
 <%for (var i =0; i < user.cart.length; i++) {%>
 <hr>
 
@@ -13,7 +15,7 @@
         <h3><%=user.cart[i].title%></h3>
         <p>Description : <%=user.cart[i].description%></p>
     </div>
-    <p> $ : <%=user.cart[i].price%></p>
+    <p> Price : $ <%=user.cart[i].price%></p>
     <p>Category : <%=user.cart[i].category%></p>
     <p>Quantity : <%= user.cart[i].count %> </p>
 

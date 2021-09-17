@@ -4,9 +4,6 @@ const { checkAuthenticated, checkNotAuthenticated } = require('../reusable/passp
 const Product = require('../models/product')
 const { fetch_get } = require('../reusable/misc_reuse')
 const admin = require("../firebase");
-const { route } = require('./retailerRoute');
-const e = require('express');
-const { exists } = require('../models/product');
 const db = admin.firestore();
 const userCollection = db.collection("users");
 
@@ -100,8 +97,8 @@ router.post('/add_to_cart', checkAuthenticated, async (req, res) => {
                 }
             });
         }
-        else{
-            res.send({'message':"Please Make Sure Ur selected Quantity is 1 Or Greater And The Product is in Stock"})
+        else {
+            res.send({ 'message': "Please Make Sure Ur selected Quantity is 1 Or Greater And The Product is in Stock" })
         }
     })
 })
@@ -158,5 +155,9 @@ router.post('/update_quan_cart', checkAuthenticated, async (req, res) => {
 
 router.get('/cart', checkAuthenticated, async (req, res) => {
     res.render('pages/cart.ejs', { title: "Cart", user: req.user })
+})
+
+router.get('/checkout', checkAuthenticated, async (req, res) => {
+    res.render('pages/checkout', {title:"Checkout", user:req.user})
 })
 module.exports = router;

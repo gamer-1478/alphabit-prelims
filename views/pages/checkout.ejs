@@ -1,0 +1,22 @@
+<h1>CheckOut</h1>
+
+<% if (user.cart.length >0) {%>
+
+<%for (var i =0; i < user.cart.length; i++) {%>
+<hr>
+
+<div>
+    <div>
+        <img src="<%=user.cart[i]['image_']%>" style="height: 100px; width:100px;" />
+        <h3><%=user.cart[i].title%></h3>
+    </div>
+    <p> Price : $ <%=user.cart[i].price%></p>
+    <p>Category : <%=user.cart[i].category%></p>
+    <p>Quantity : <%= user.cart[i].count %> </p>
+    <p>Product Total : $ <%= user.cart[i].count*user.cart[i].price %> </p>
+</div>
+<br>
+<%}%>
+<% } else { %>
+<h1>Add Products To Cart To Get Started</h1>
+<% } %>

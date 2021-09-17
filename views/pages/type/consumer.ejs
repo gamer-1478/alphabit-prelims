@@ -15,9 +15,13 @@
     <img src="<%=products[i]['image_']%>" style="height: 100px; width:100px;" />
     <h3><%=products[i].title%></h3>
     <p>Description : <%=products[i].description%></p>
-    <p> $ : <%=products[i].price%></p>
+    <p> Price : $ <%=products[i].price%></p>
     <p>Category : <%=products[i].category%></p>
+    <% if (products[i].quan>0){ %>
     <p>Stock Left : <%= products[i].quan %></p>
+    <% } else { %>
+    <p>Stock Left : Product Out Of Stock</p>
+    <% } %>
 </div>
 
 <br>
