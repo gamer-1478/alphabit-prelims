@@ -16,7 +16,16 @@ const productSchema = new Schema({
     'count': {
         type: Number,
         required: false
+    },
+        'quan': {
+        type: Number,
+        required: false
+    },
+    'seller_id':{
+        type:String,
+        required: false
     }
+
 }, { collection: 'products' })
 
 const Product = mongoose.model('Product', productSchema)

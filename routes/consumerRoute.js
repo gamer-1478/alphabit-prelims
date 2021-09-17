@@ -52,52 +52,57 @@ router.post('/add_to_cart', checkAuthenticated, async (req, res) => {
     var count = parseInt(req.body.count)
     const id = req.body.id
     Product.findById(id).then(async (result) => {
-        await userCollection.doc(req.user.username).get().then(async (result_fire) => {
-            result_fire = result_fire.data()
+        if (count > 0 && result.quan > count) {
+            await userCollection.doc(req.user.username).get().then(async (result_fire) => {
+                result_fire = result_fire.data()
 
-            if (result_fire.cart.length > 0) {
-                for (var i = 0; i < result_fire.cart.length; ++i) {
-                    var result_fir = result_fire.cart[i]
-                    if (await result_fir._id == id) {
-                        console.log("found product, adding to count")
-                        result.count = count
-                        result_fire.cart[i] = result
-                        await userCollection.doc(req.user.username).set(JSON.parse(JSON.stringify(result_fire))).then((resp) => {
-                            console.log('Added to cart')
-                            res.redirect('/consumer/cart')
-                        }).catch((err) => {
-                            console.log(err)
-                        })
-                        break
-                    }
-                    else if (i == result_fire.cart.length - 1) {
-                        result.count = count
-                        await userCollection.doc(req.user.username).update({
-                            cart: admin.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(result)))
-                        }).then((resp) => {
-                            console.log('Added to cart')
-                            res.redirect('/consumer/cart')
-                        }).catch((err) => {
-                            console.log(err)
-                        })
-                    }
-                    else {
-                        continue
+                if (result_fire.cart.length > 0) {
+                    for (var i = 0; i < result_fire.cart.length; ++i) {
+                        var result_fir = result_fire.cart[i]
+                        if (await result_fir._id == id) {
+                            console.log("found product, adding to count")
+                            result.count = count
+                            result_fire.cart[i] = result
+                            await userCollection.doc(req.user.username).set(JSON.parse(JSON.stringify(result_fire))).then((resp) => {
+                                console.log('Added to cart')
+                                res.redirect('/consumer/cart')
+                            }).catch((err) => {
+                                console.log(err)
+                            })
+                            break
+                        }
+                        else if (i == result_fire.cart.length - 1) {
+                            result.count = count
+                            await userCollection.doc(req.user.username).update({
+                                cart: admin.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(result)))
+                            }).then((resp) => {
+                                console.log('Added to cart')
+                                res.redirect('/consumer/cart')
+                            }).catch((err) => {
+                                console.log(err)
+                            })
+                        }
+                        else {
+                            continue
+                        }
                     }
                 }
-            }
-            else {
-                result.count = count
-                await userCollection.doc(req.user.username).update({
-                    cart: admin.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(result)))
-                }).then((resp) => {
-                    console.log('Added to cart')
-                    res.redirect('/consumer/cart')
-                }).catch((err) => {
-                    console.log(err)
-                })
-            }
-        });
+                else {
+                    result.count = count
+                    await userCollection.doc(req.user.username).update({
+                        cart: admin.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(result)))
+                    }).then((resp) => {
+                        console.log('Added to cart')
+                        res.redirect('/consumer/cart')
+                    }).catch((err) => {
+                        console.log(err)
+                    })
+                }
+            });
+        }
+        else{
+            res.send({'message':"Please Make Sure Ur selected Quantity is 1 Or Greater And The Product is in Stock"})
+        }
     })
 })
 
@@ -150,6 +155,7 @@ router.post('/update_quan_cart', checkAuthenticated, async (req, res) => {
     })
 
 })
+
 router.get('/cart', checkAuthenticated, async (req, res) => {
     res.render('pages/cart.ejs', { title: "Cart", user: req.user })
 })

@@ -8,7 +8,19 @@ const userCollection = db.collection("users");
 
 
 router.post('/sellForm', checkAuthenticated, async (req, res) => {
-    var prod = new Product({ title: req.body.title, description: req.body.description, price: req.body.price, category: req.body.category, image_: req.body.image, rating: { rate: 5, count: 0 } })
+    var prod = new Product({
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        category: req.body.category,
+        image_: req.body.image,
+        quan: req.body.quan,
+        seller_id: req.user.id,
+        rating: {
+            rate: 5,
+            count: 0
+        }
+    })
     await prod.save(async function (err, product) {
         if (err) {
             res.send({ message: 'Product Failed To Be Added', sucess: false, error: err })
@@ -24,10 +36,10 @@ router.post('/sellForm', checkAuthenticated, async (req, res) => {
             products.products = []
             products.products.push(product.id)
         }
-        await userCollection.doc(req.user.username).update({products : products.products}).then((results) => {
+        await userCollection.doc(req.user.username).update({ products: products.products }).then((results) => {
             res.send({ message: 'Product Added Successfully', sucess: true })
-        }).catch((error)=>{
-            if(error){
+        }).catch((error) => {
+            if (error) {
                 console.log(error)
             }
         })
@@ -81,4 +93,28 @@ router.post('/remove', checkAuthenticated, async (req, res) => {
         }
     })
 })
+
+/*router.get('/update_route', checkAuthenticated, async (req, res) => {
+    const resp = await Product.find().then(async(result, error) => {
+        if (error) console.log(error)
+        return result
+    })
+    await resp.forEach( async element => {
+        if (req.user.products.includes(element._id)) {
+            console.log(element._id)
+        }
+        else {
+            var response = await Product.findById(element._id)
+            response.quan = 10
+            response.seller_id = req.user.id
+            await response.save().then(
+                async (result_mong)=>{
+                    userCollection.doc(req.user.username).update({ products: admin.firestore.FieldValue.arrayUnion(result_mong.id)})
+                }
+            )
+        }
+    });
+    res.send('hmm')
+})*/
+
 module.exports = router;

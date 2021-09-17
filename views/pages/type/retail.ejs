@@ -15,7 +15,10 @@
             <input type="text" id="description" name="description" class="description"><br><br>
 
             <label for="price">Enter Product Price in US DOLLARS</label>
-            <input type="text" id="price" name="price" class="price"><br><br>
+            <input type="number" id="price" name="price" class="price" value="1" min="1" max="1000"><br><br>
+
+            <label for="quan">Enter Product Quantity You Want To Sell</label>
+            <input type="number" id="quan" name="quan" class="quan" value="1" min="1" max="100"><br><br>
 
             <label for="image">Enter Product image link (it must end with .png or .jpg)</label>
             <input type="text" id="image" name="image" class="image"><br><br>
@@ -73,8 +76,10 @@
         var price = parseInt(document.getElementById('price').value)
         var image = document.getElementById('image').value
         var category = document.getElementById('category').value
+        var quan = parseInt(document.getElementById('quan').value)
 
-        if (!(title, description, price, image, category)) {
+        console.log(!(title.length > 0), !(description.length > 0), !(image.length > 0), !(category.length > 0))
+        if (!(title.length > 0), !(description.length > 0), !(image.length > 0), !(category.length > 0)) {
             notyf.error("Please Fill All The Fields")
         } else if (isNaN(price)) {
             notyf.error("Please enter a valid integer of price in US DOLLARS")
@@ -91,7 +96,8 @@
                         description,
                         price,
                         image,
-                        category
+                        category,
+                        quan
                     }),
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
