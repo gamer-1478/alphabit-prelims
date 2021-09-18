@@ -1,64 +1,44 @@
-<h1>CheckOut</h1>
+<h1 style="margin-top: 5vh; margin-left:5vh">CheckOut</h1>
 
 <% if (user.cart.length >0) {%>
 
-<%for (var i =0; i < user.cart.length; i++) {%>
-<hr>
 
-<div>
-    <div>
-        <img src="<%=user.cart[i]['image_']%>" style="height: 100px; width:100px;" />
-        <h3><%=user.cart[i].title%></h3>
-    </div>
-    <p>Price : $ <%=user.cart[i].price%></p>
-    <p>Category : <%=user.cart[i].category%></p>
-    <p>Quantity : <%= user.cart[i].count %> </p>
-    <p>Product Total : $ <%= user.cart[i].count*user.cart[i].price %> </p>
-</div>
-<br>
-<%}%>
-<p>Total Price: <%=total%></p>
-<h2>Enter your information</h2>
-<form action="/consumer/checkout" onsubmit="return validateForm()" method="POST">
-    <label for="name">Name</label>
-    <input name="name" id="name" value="<%=user['name']%>" readonly> <br><br>
+<p style="font-size:30px; margin-top: 1vh; margin-left:5vh">Total Price: $<%=total%></p>
+    <div class="line-1" style="height: 200%;"></div>
 
-    <label for="address_1">Address Line 1</label>
-    <input name="address_1" id="address_1" required> <br><br>
-
-    <label for="address_2">Address Line 2</label>
-    <input name="address_2" id="address_2"  required> <br><br>
-
-    <label for="city" >City</label>
-    <input name="city" id="city" required> <br><br>
-
-    <label for="state">State</label>
-    <input name="state" id="state" required> <br><br>
-
-    <label for="country">Country</label>
-    <input name="country" id="country" required> <br><br>
-
-    <label for="pin">Pin Code</label>
-    <input type="number" name="pin" id="pin"  required> <br><br>
+<div class="check-for-div">
+    <h2>Enter your information</h2>
     <br>
+    <form action="/consumer/checkout" class="check-for" onsubmit="return validateForm()" method="POST">
+        <label for="name" class="n-f">Name</label>
+        <input name="name" id="name" value="<%=user['name']%>" readonly>
+        <label for="address_1" class="a-f">Address Line 1</label>
+        <input name="address_1" id="address_1" required>
+        <label for="address_2" class="a-f-1">Address Line 2</label>
+        <input name="address_2" id="address_2" required>
+        <label for="city" class="c-f">City</label>
+        <input name="city" id="city" required>
+        <label for="state" class="s-f">State</label>
+        <input name="state" id="state" required>
+        <label for="country" class="co-f">Country</label>
+        <input name="country" id="country" required>
+        <label for="pin" class="p-f">Pin Code</label>
+        <input type="number" name="pin" id="pin" required>
+        <label for="cc" class="cc-f">Credit Card Number</label>
+        <input name="cc" id="cc" required>
+        <label for="issue" class="iss-f">Issued (MM/YY)</label>
+        <input type="date" name="issue" id="issue" required>
+        <label for="expiry" class="ex-f">Expiry (MM/YY)</label>
+        <input type="date" name="expiry" id="expiry" required>
+        <label for="cvv" class="cv-f">CVV</label>
+        <input name="cvv" id="cvv" type="password" required>
+        <button type="submit">Order</button>
+    </form>
     
-    <label for="cc">Credit Card Number</label>
-    <input name="cc" id="cc"  required> <br><br>
-
-    <label for="issue">Issued (MM/YY)</label>
-    <input type="date" name="issue" id="issue" required> <br><br>
-
-    <label for="expiry" >Expiry (MM/YY)</label>
-    <input type="date" name="expiry" id="expiry" required> <br><br>
-
-    <label for="cvv" >CVV Number</label>
-    <input name="cvv" id="cvv" type="password" required> <br><br>
-
-    <button type="submit">Order</button>
-</form>
+</div>
 <hr>
 <% } else { %>
-<h1>Add Products To Cart To Get Started</h1>
+<h1 style="margin-top: 5vh; margin-left:5vh">Add Products To Cart To Get Started</h1>
 <% } %>
 
 <script>

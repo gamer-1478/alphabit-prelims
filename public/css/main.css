@@ -908,6 +908,12 @@ input:checked+.slider:before {
     margin-top: 35vw;
 }
 
+.dash-card-retailer {
+    position: absolute;
+    margin-left: 10vw;
+    margin-top: 10vw;
+}
+
 .dash-list {
     display: flex;
     margin-bottom: 2.5vw;
@@ -1126,6 +1132,34 @@ input:checked+.slider:before {
     border-radius: 0.5vw;
     margin-top: 25vw;
     margin-left: 60.5vw;
+}
+
+.dash-card-retailer button {
+    cursor: pointer;
+    position: absolute;
+    width: 14vw;
+    height: 2.5vw;
+    padding: 3px;
+    background: #111;
+    color: #eee;
+    font-size: 1.25vw;
+    border: none;
+    border-radius: 0.5vw;
+}
+
+.summary-card-retailer button {
+    cursor: pointer;
+    position: absolute;
+    width: 14vw;
+    height: 2.5vw;
+    padding: 3px;
+    background: #111;
+    color: #eee;
+    font-size: 1.25vw;
+    border: none;
+    border-radius: 0.5vw;
+    margin-top: 5vw;
+    margin-left: 7.5vw;
 }
 
 .sell-p {
@@ -1403,6 +1437,7 @@ input:checked+.slider:before {
 
 .sum-card-desc {
     margin-top: 0.5vw;
+    width: 16.5vw;
     margin-left: 1.5vw;
 }
 
@@ -1491,4 +1526,86 @@ input:checked+.slider:before {
         top: 15px;
         right: 35px;
     }
+}
+
+.check-for-div {
+    position: absolute;
+    margin-top: 10vw;
+    margin-left: 17.5vw;
+}
+
+.check-for-div label {
+    position: absolute;
+}
+
+.check-for-div .check-for input {
+    width: 25vw;
+    height: 3.5vw;
+    border-radius: 1.5vw;
+    background: #eee;
+    padding-left: 2.5vw;
+    padding-right: 1.5vw;
+    font-size: 1.5vw;
+    border: none;
+    margin-left: 25vw;
+    position: absolute;
+}
+
+.check-for-div .check-for input:focus {
+    outline: none;
+}
+
+.check-for-div button {
+    position: absolute;
+    background: #111;
+    width: 15vw;
+    height: 3.5vw;
+    color: #eee;
+    border: none;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    font-size: 1.25vw;
+    position: absolute;
+    margin-top: 58vw;
+    
+}
+
+#address_1, .a-f {
+    margin-top: 5vw;
+}
+
+#address_2, .a-f-1 {
+    margin-top: 10vw;
+}
+
+#city, .c-f {
+    margin-top: 15vw;
+}
+
+#state, .s-f {
+    margin-top: 20vw;
+}
+
+#country, .co-f {
+    margin-top: 25vw;
+}
+
+#pin, .p-f {
+    margin-top: 30vw;
+}
+
+#cc, .cc-f {
+    margin-top: 35vw;
+}
+
+#issue, .iss-f {
+    margin-top: 40vw;
+}
+
+#expiry, .ex-f {
+    margin-top: 45vw;
+}
+
+#cvv, .cv-f {
+    margin-top: 50vw;
 }

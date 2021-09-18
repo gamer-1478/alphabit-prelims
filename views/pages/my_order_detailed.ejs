@@ -56,12 +56,13 @@
         <div class="sum-card-list">
             <%for (var a =0; a < product.order.length; a++) {%>
             <div class="sum-card" id='<%= product.order_id %>'>
-                <div class="sum-card-img" style="background: url('<%=product.order[a]['image_']%>');"></div>
+                <div class="sum-card-img"
+                    style="background: url('<%=product.order[a]['image_']%>'); background-size: cover;"></div>
                 <div class="sum-card-desc">
                     <h3><%=product.order.title%></h3>
                     <h5>Price:</h5>
                     <p>$ <%=product.order[a].price%></p>
-                    <h5>Quantity Left:</h5>
+                    <h5>Quantity Ordered:</h5>
                     <p><%= product.order[a].count %></p>
                     <h5>Product Total:</h5>
                     <p>$ <%= product.order[a].count*product.order[a].price %></p>
