@@ -61,7 +61,7 @@ router.post('/', checkAuthenticated, ((req, res) => {
 router.get('/product/:backlink', checkAuthenticated, async (req, res) => {
     var backlink = req.params.backlink
     Product.findById(backlink).then((result) => {
-        res.render('pages/product', { title: result.title, product: result, user:req.user})
+        res.render('pages/product', { title: result.title, product: result, user: req.user })
     }).catch((error) => { if (error) console.log(error) })
 })
 
@@ -174,7 +174,21 @@ router.post('/update_quan_cart', checkAuthenticated, async (req, res) => {
 })
 
 router.get('/cart', checkAuthenticated, async (req, res) => {
-    res.render('pages/cart.ejs', { title: "Cart", user: req.user })
+    var testArray = [];
+    const products = req.user.cart;
+    var j = 0, len = products.length;
+    if (products.length > 0) {
+        while (j < len) {
+            j += 2
+            testArray.push(products.splice(0, 2))
+            if (j >= len - 1) {
+                res.render('pages/cart.ejs', { title: "Cart", user: req.user, "cart": testArray })
+            }
+        }
+    }
+    else {
+        res.render('pages/cart.ejs', { title: "Cart", user: req.user, "cart": [] })
+    }
 })
 
 router.get('/checkout', checkAuthenticated, async (req, res) => {
@@ -272,7 +286,7 @@ router.get('/my_orders/:backlink', checkAuthenticated, async (req, res) => {
         console.log(typeof (product) != 'undefined' && product.hasOwnProperty('cc'))
         if (typeof (product) != 'undefined' && product.hasOwnProperty('cc')) {
             //res.send(req.body)
-            res.render('pages/my_order_detailed', { title: "Detailed Order View", user:req.user, product: req.user.orders[number] })
+            res.render('pages/my_order_detailed', { title: "Detailed Order View", user: req.user, product: req.user.orders[number] })
         }
         else {
             res.render('pages/404', { title: "404 Not Found" })

@@ -942,7 +942,48 @@ input:checked+.slider:before {
     position: absolute;
     margin-left: 2vw;
     margin-top: 15vw;
-    width: 14.5vw;
+}
+
+.dash-list-c .card {
+    height: 22.5vw;
+    width: 35vw;
+}
+
+.dash-card-c {
+    position: absolute;
+    margin-left: 17.5vw;
+    margin-top: 15vw;
+    height: 50vw;
+}
+
+.dash-list-c {
+    display: flex;
+    margin-bottom: 2.5vw;
+}
+
+.cart-form form input {
+    width: 15vw;
+    height: 3.5vw;
+    border-radius: 1.5vw;
+    background: rgb(206, 206, 206);
+    padding-left: 2.5vw;
+    padding-right: 1.5vw;
+    font-size: 1.5vw;
+    margin-left: 18.5vw;
+    margin-top: 8.5vw;
+    border: none;
+    position: absolute;
+    z-index: 10;
+}
+
+.cart-form form label {
+    position: absolute;
+    margin-top: 6.5vw;
+    margin-left: 18.5vw;
+}
+
+.cart-form form input:focus {
+    outline: none;
 }
 
 .dash-card-1 {
@@ -1538,6 +1579,33 @@ input:checked+.slider:before {
     position: absolute;
 }
 
+.check, .up, .del {
+    background: #111;
+    width: 15vw;
+    height: 3.5vw;
+    color: #eee;
+    border: none;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    font-size: 1.25vw;
+    position: absolute;
+}
+
+.check {
+    margin-left: 17.5vw;
+    margin-top: 10vw;
+}
+
+.del {
+    margin-top: 1.5vw;
+    margin-left: 18.5vw;
+}
+
+.up {
+    margin-top: 15vw;
+    margin-left: 18.5vw;
+}
+
 .check-for-div .check-for input {
     width: 25vw;
     height: 3.5vw;
@@ -1567,7 +1635,6 @@ input:checked+.slider:before {
     font-size: 1.25vw;
     position: absolute;
     margin-top: 58vw;
-    
 }
 
 #address_1, .a-f {
