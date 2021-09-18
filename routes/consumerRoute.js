@@ -22,12 +22,18 @@ const userCollection = db.collection("users");
     res.send('hi')
 })*/
 
-router.get('/', checkAuthenticated, (req, res) => {
-    Product.find().then((result) => {
-        const products = result
-        for (var j = 0; j < products.length; j++) {
+router.get('/', checkAuthenticated, async (req, res) => {
+    await Product.find().then((result) => {
+        var testArray = [];
+        const products = result;
+        var j = 0, len = products.length;
+        while (j < len) {
+            j += 4
+            testArray.push(products.splice(0, 4))
+            if (j >= len - 1) {
+                res.render('pages/type/consumer', { "title": 'Consumer Dashboard', "user": req.user, "products": testArray })
+            }
         }
-        res.render('pages/type/consumer', { "title": 'Consumer Dashboard', "user": req.user, "products": products })
     })
 
 })
@@ -36,15 +42,26 @@ router.post('/', checkAuthenticated, ((req, res) => {
     const query = req.body.query;
     Product.find({ $or: [{ title: { '$regex': query, "$options": "i" } }, { description: { '$regex': query, "$options": "i" } }] }).then((result) => {
         const products = result;
-
-        res.render('pages/type/consumer', { title: 'Consumer Dashboard', user: req.user, products: products })
+        var testArray = [];
+        if (products.length > 0) {
+            var j = 0, len = products.length;
+            while (j < len) {
+                j += 4
+                testArray.push(products.splice(0, 4))
+                if (j >= len - 1) {
+                    res.render('pages/type/consumer', { "title": 'Consumer Dashboard', "user": req.user, "products": testArray })
+                }
+            }
+        } else {
+            res.render('pages/type/consumer', { "title": 'Consumer Dashboard', "user": req.user, "products": testArray })
+        }
     })
 }))
 
 router.get('/product/:backlink', checkAuthenticated, async (req, res) => {
     var backlink = req.params.backlink
     Product.findById(backlink).then((result) => {
-        res.render('pages/product', { title: result.title, product: result })
+        res.render('pages/product', { title: result.title, product: result, user:req.user})
     }).catch((error) => { if (error) console.log(error) })
 })
 
@@ -255,10 +272,10 @@ router.get('/my_orders/:backlink', checkAuthenticated, async (req, res) => {
         console.log(typeof (product) != 'undefined' && product.hasOwnProperty('cc'))
         if (typeof (product) != 'undefined' && product.hasOwnProperty('cc')) {
             //res.send(req.body)
-            res.render('pages/my_order_detailed', { title: "Detailed Order View", product: req.user.orders[number] })
+            res.render('pages/my_order_detailed', { title: "Detailed Order View", user:req.user, product: req.user.orders[number] })
         }
-        else{
-            res.render('pages/404', {title:"404 Not Found"})
+        else {
+            res.render('pages/404', { title: "404 Not Found" })
         }
     }
     else {

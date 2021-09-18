@@ -1,20 +1,73 @@
-<h2>Order Details</h2>
-<h3>Total Cost : $<%=product.total  %></h3>
-<h4>Adress :
-    <%=product.address + '\n' + product.city + '\n' + product.state + '\n' +product.pin%>
-</h4>
-<h4>Card Used : <%= product.cc %></h4>
-</div>
+<body>
+    <div class="nav-dashboard">
+        <img src="https://media.discordapp.net/attachments/741244174736556076/887655770739601418/unknown.png"
+            alt="Dashboard" onclick="new function(){
+                    window.location.href = window.location.origin+'/dashboard';}">
 
-<%for (var a =0; a < product.order.length; a++) {%>
-<div id='<%= product.order_id %>'>
-    <hr>
-    <h4>Item Number <%= a+1 %> </h4>
-    <img src="<%=product.order[a]['image_']%>" style="height: 100px; width:100px;" />
-    <h3><%=product.order.title%></h3>
-    <p> Price : $ <%=product.order[a].price%></p>
-    <p>Quantity : <%= product.order[a].count %> </p>
-    <p>Product Total : $ <%= product.order[a].count*product.order[a].price %> </p>
-    <br>
-</div>
-<%}%>
+        <form class="search-form" onclick="preventDefault();" action="/consumer" method="post">
+            <input type="text" id="query" name="query" class="query" placeholder="Search">
+        </form>
+
+        <ul onclick="new function(){window.location.href='/profile'}">
+            <li class="user-n">Profile</li>
+            <li class="gear-n">
+                <span class="material-icons-round">
+                    settings
+                </span>
+            </li>
+        </ul>
+        <span class="material-icons-outlined clothes">
+            sell
+        </span>
+        <h4 class="cloth" onclick="new function(){window.location.href='/consumer/cart'}">Cart</h4>
+        <% if (user.type_of_user == true){%>
+        <h4 class="cloth" onclick="new function(){window.location.href='/dashboard'}"
+            style="margin-top: 14vw; font-weight: bold;">Retailer Dashboard</h4>
+        <h4 class="cloth" onclick="new function(){window.location.href='/consumer'}"
+            style="margin-top: 16vw; font-weight: bold;">Consumer Dashboard</h4>
+        <% } %>
+        <h4 class="cloth" onclick="new function(){window.location.href='/consumer/my_orders'}"
+            style="margin-top: 12vw; font-weight: bold;">Order Placed</h4>
+
+        <div id="logout_click_div" onclick="Logout()">
+            <span class="material-icons-outlined log">
+                logout
+            </span>
+            <h4 class="log-out">
+                Logout
+            </h4>
+        </div>
+
+    </div>
+    <div class="line-1"></div>
+    <div class="line-2"></div>
+    <div class="sum-order">
+        <div class="sum-desc">
+            <h1 class="ord-no">Order No. 1 - Details</h1>
+            <h3 class="ord-cost">Total Cost : $<%=product.total  %></h3>
+            <h4 class="card-used">Card Used: <%= product.cc %></h4>
+            <h4 class="address">Address: <%=product.address%></h4>
+            <h4>City: <%= product.city %></h4>
+            <h4>State: <%= product.state %></h4>
+            <h4>Country: <%= product.country %></h4>
+            <h4>Pin: <%= product.pin %></h4>
+
+        </div>
+        <div class="sum-card-list">
+            <%for (var a =0; a < product.order.length; a++) {%>
+            <div class="sum-card" id='<%= product.order_id %>'>
+                <div class="sum-card-img" style="background: url('<%=product.order[a]['image_']%>');"></div>
+                <div class="sum-card-desc">
+                    <h3><%=product.order.title%></h3>
+                    <h5>Price:</h5>
+                    <p>$ <%=product.order[a].price%></p>
+                    <h5>Quantity Left:</h5>
+                    <p><%= product.order[a].count %></p>
+                    <h5>Product Total:</h5>
+                    <p>$ <%= product.order[a].count*product.order[a].price %></p>
+                </div>
+            </div>
+            <%}%>
+        </div>
+    </div>
+</body>

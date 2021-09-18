@@ -1,0 +1,1494 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap%27');
+* {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+span {
+    font-family: 'Material Icons', sans-serif;
+}
+
+.search-form-index {
+    position: absolute;
+}
+
+.landing-div {
+    display: flex;
+    width: 95%;
+    background: #111;
+    color: #eee;
+    height: 27.5vw;
+    border-radius: 2.5vw;
+    margin-top: 5.5vw;
+    margin-left: 2.5%;
+}
+
+.landing-div h1 {
+    position: absolute;
+    font-size: 5vw;
+    font-weight: 800;
+    margin-left: 5vw;
+    margin-top: 5.5vw;
+}
+
+.landing-div h4 {
+    font-size: 2vw;
+    font-weight: 500;
+    margin-left: 5vw;
+    margin-top: 12vw;
+}
+
+.landing-div input {
+    background: rgba(44, 41, 41, 0.95);
+    width: 25vw;
+    height: 4vw;
+    padding: 10px;
+    border-radius: 2vw;
+    border: none;
+    color: #eee;
+    position: absolute;
+    margin-left: 5vw;
+    margin-top: 17.5vw;
+    padding-left: 2.5vw;
+    font-size: 1.5vw;
+}
+
+.landing-div input:focus {
+    outline: none;
+}
+
+.engagement-panel {
+    background: red;
+    width: 95%;
+    height: 20%;
+    margin-top: 5vw;
+    margin-left: 2.5%;
+}
+
+.about {
+    margin-top: 7.5vw;
+    margin-bottom: -15vw;
+}
+
+.about h1 {
+    font-size: 3.5vw;
+    margin-left: 5vw;
+    margin-top: 2.5vw;
+    position: absolute;
+}
+
+.about p {
+    position: absolute;
+    margin-left: 5.5vw;
+    margin-top: 12.5vw;
+    color: rgb(138, 138, 138);
+    font-weight: 500;
+}
+
+.nav-div img {
+    width: 3.5vw;
+    height: 3.5vw;
+    position: absolute;
+    margin-left: 7.5vw;
+}
+
+.nav-div ul {
+    list-style: none;
+    display: flex;
+    position: absolute;
+}
+
+.nav-div {
+    height: 3.5vw;
+    padding-top: 2.5vw;
+}
+
+.nav-div ul li {
+    position: absolute;
+    margin-left: 70vw;
+    font-size: 1.25vw;
+    cursor: pointer;
+    padding-top: 1.5vw;
+}
+
+.nav-div ul .n1 {
+    position: absolute;
+    margin-left: 75vw;
+    font-size: 1.25vw;
+    cursor: pointer;
+}
+
+.nav-div ul .n2 {
+    position: absolute;
+    margin-left: 80vw;
+    font-size: 1.25vw;
+}
+
+.nav-div ul .n3 {
+    position: absolute;
+    margin-left: 85vw;
+    font-size: 1.25vw;
+    cursor: pointer;
+}
+
+.about img {
+    width: 28.5vw;
+    height: 32.5vw;
+    position: absolute;
+    margin-left: 65vw;
+    margin-top: 0vw;
+}
+
+.rate p {
+    position: absolute;
+    color: rgb(138, 138, 138);
+    font-weight: 500;
+    margin-top: 10vw;
+    margin-left: 42.5vw;
+    font-size: 1.5vw;
+}
+
+.rate-icon span {
+    font-size: 3vw;
+    position: absolute;
+    margin-top: 0.85vw;
+    margin-left: 0.9vw;
+}
+
+.rate-icon p {
+    position: absolute;
+    font-size: 1vw;
+    margin-left: 6.75vw;
+    margin-top: 4.25vw;
+}
+
+.rate-icon-s {
+    width: 5vw;
+    height: 5vw;
+    background: rgba(248, 244, 244, 0.95);
+    border-radius: 100%;
+    position: absolute;
+    margin-top: .75vw;
+    margin-left: 0.65vw;
+}
+
+.rate-icon {
+    background: #eee;
+    height: 6.5vw;
+    width: 22.5vw;
+    border-radius: 1.5vw;
+    margin-left: 7.5vw;
+    position: absolute;
+    margin-top: 22.5vw;
+}
+
+.counter {
+    position: absolute;
+    margin-left: 6.5vw;
+    font-size: 2.5vw;
+    margin-top: 1.5vw;
+    font-weight: 500;
+}
+
+.rate-icon-1 p {
+    position: absolute;
+    font-size: 1vw;
+    margin-left: 6.75vw;
+    margin-top: 4.25vw;
+}
+
+.rate-icon-1 span {
+    font-size: 3vw;
+    position: absolute;
+    margin-top: 0.85vw;
+    margin-left: 0.9vw;
+}
+
+.rate-icon-s-1 {
+    width: 5vw;
+    height: 5vw;
+    background: rgba(248, 244, 244, 0.95);
+    border-radius: 100%;
+    position: absolute;
+    margin-top: .75vw;
+    margin-left: 0.65vw;
+}
+
+.rate-icon-1 {
+    background: #eee;
+    height: 6.5vw;
+    width: 22.5vw;
+    border-radius: 1.5vw;
+    margin-left: 32.5vw;
+    position: absolute;
+    margin-top: 22.5vw;
+}
+
+.counter-1 {
+    position: absolute;
+    margin-left: 6.5vw;
+    font-size: 2.5vw;
+    margin-top: 1.5vw;
+    font-weight: 500;
+}
+
+.rate-icon-1 p {
+    position: absolute;
+    font-size: 1vw;
+    margin-left: 6.75vw;
+    margin-top: 4.25vw;
+}
+
+.footer-div {
+    height: 5vw !important;
+    position: absolute;
+    border-top: 2px solid #eee;
+    width: 95%;
+    left: 2.5%;
+    margin-top: 50vw;
+}
+
+.benefit-user {
+    height: 50vw;
+    margin-top: 50vw;
+}
+
+.benefit-user h2 {
+    position: absolute;
+    margin-left: 5vw;
+    font-size: 2.5vw;
+    margin-top: 10vw;
+}
+
+.line {
+    width: 12.5vw;
+    height: 2.5px;
+    background: #111;
+    position: absolute;
+    margin-left: 5vw;
+    margin-top: 7.5vw;
+}
+
+.benefit-div {
+    display: flex;
+    position: absolute;
+    margin-top: 22.5vw;
+    margin-left: 5.5vw;
+}
+
+.benefit-div .warant-div, .benefit-div .quality-div, .benefit-div .package-div {
+    position: absolute;
+}
+
+.benefit-div span {
+    font-size: 3vw;
+}
+
+.benefit-div .warant-div {
+    margin-left: 30vw;
+}
+
+.benefit-div .quality-div {
+    margin-left: 60vw;
+}
+
+.benefit-div h2 {
+    position: absolute;
+    margin-top: -1.5vw;
+}
+
+.benefit-div p {
+    margin-top: 1.75vw;
+    margin-left: 5.5vw;
+    position: absolute;
+    font-weight: 500;
+    color: rgb(138, 138, 138);
+}
+
+/* .user-div{
+    height: 50vw;
+}
+.user-div h1{
+    font-size: 3.5vw;
+    text-align: center;
+    margin-top: 5vw;
+}
+.user-div p{
+    text-align: center;
+    margin-top: -42.5vw;
+}
+.user-1,
+.user-2,.user-3,.user-4,.user-5,.user-6{
+    width: 5vw !important;
+    height: 5vw !important;
+    background-size: cover !important;
+    cursor: pointer;
+    border-radius: 100%;
+    position: absolute;
+}
+.user-1{
+    margin-top: -30vw;
+    margin-left: 10vw;
+}
+.user-2{
+    margin-top: -40vw;
+    margin-left: 65vw;
+}
+.user-3{
+    margin-top: -45vw;
+    margin-left: 15vw;
+}
+.user-4{
+    margin-top: -15vw;
+    margin-left: 65vw;
+}
+.user-5{
+    margin-left: 75vw;
+    margin-top: -30vw;
+} */
+
+.social-ul {
+    list-style: none;
+    display: flex;
+    margin-left: 80vw;
+}
+
+.social-ul li {
+    position: absolute;
+    margin-left: 5vw;
+}
+
+.social-ul li:nth-child(even) {
+    position: absolute;
+    margin-left: 7.5vw;
+}
+
+.social-ul li:nth-child(3) {
+    margin-left: 10vw;
+}
+
+.footer-div h3 {
+    position: absolute;
+    margin-top: 1.5vw;
+}
+
+.social-ul {
+    position: absolute;
+    margin-top: 1.5vw;
+}
+
+.img {
+    width: 40vw;
+    height: 40vw;
+    position: absolute;
+    margin-left: 50vw;
+    margin-top: 5vw;
+}
+
+.switch {
+    position: absolute;
+    display: inline-block;
+    width: 3.85vw;
+    height: 2vw;
+    margin-top: 31.5vw;
+    margin-left: 10vw;
+}
+
+/* Hide default HTML checkbox */
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 1.5vw;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.5vw;
+    width: 1.5vw;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 100%;
+}
+
+input:checked+.slider {
+    background-color: grey;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.form-div .email, .form-div .password {
+    width: 20vw;
+    height: 2.5vw;
+    position: absolute;
+    border: none;
+    border-radius: 1.5vw;
+    background: #eee;
+    padding-left: 1.5vw;
+    font-size: 1vw;
+    color: gray;
+}
+
+.ham {
+    display: none;
+}
+
+.form-div .email:focus, .form-div .password:focus {
+    outline: none;
+}
+
+.form-div {
+    position: absolute;
+    margin-top: 15vw;
+    margin-left: 7.5vw;
+}
+
+.form-div h1 {
+    font-size: 3.5vw;
+}
+
+.email-label {
+    margin-top: 5vw;
+    position: absolute;
+}
+
+.email {
+    margin-top: 4.5vw;
+    margin-left: 8.5vw;
+}
+
+.pw-label {
+    position: absolute;
+    margin-top: 10vw;
+}
+
+.password {
+    margin-left: -1vw;
+    margin-top: 9.5vw;
+}
+
+.form-div .btn {
+    width: 10vw;
+    height: 2.5vw;
+    border: none;
+    background: #111;
+    color: #fff;
+    font-size: 1vw;
+    border-radius: 1.5vw;
+    position: absolute;
+    margin-top: 15vw;
+    margin-left: 8.5vw;
+    cursor: pointer;
+}
+
+.form-div a {
+    color: red;
+    text-decoration: none;
+}
+
+.form-div .label-link {
+    color: white !important;
+}
+
+.form-div p {
+    position: absolute;
+    margin-top: 1.5vw;
+}
+
+.register-img {
+    width: 45vw !important;
+    height: 40vw !important;
+    position: absolute;
+    margin-top: 10vw;
+    margin-left: 55vw;
+}
+
+.register-div form input {
+    width: 35vw !important;
+}
+
+.register-div h1 {
+    font-size: 3.5vw;
+}
+
+.register-div p {
+    margin-top: 1.5vw;
+}
+
+.register-div p a {
+    text-decoration: none;
+    color: red;
+}
+
+.register-div {
+    position: absolute;
+    margin-top: 5vw;
+    margin-left: 7.5vw;
+}
+
+.register-div .email, .register-div .name, .register-div .pw, .register-div .c-pw, .register-div .user {
+    width: 20vw;
+    height: 2.5vw;
+    position: absolute;
+    border: none;
+    border-radius: 1.5vw;
+    background: #eee;
+    padding-left: 1.5vw;
+    font-size: 1vw;
+    color: gray;
+}
+
+.register-div .email:focus, .register-div .name:focus, .register-div .pw:focus, .register-div .c-pw:focus, .register-div .user:focus {
+    outline: none;
+}
+
+.register-div .email-l, .register-div .name-l, .register-div .pw-l, .register-div .c-pw-l, .register-div .user-l {
+    position: absolute;
+}
+
+.name-l {
+    margin-top: 3.5vw;
+}
+
+.user-l {
+    margin-top: 8.5vw;
+}
+
+.pw-l {
+    margin-top: 20.5vw;
+}
+
+.c-pw-l {
+    margin-top: 26.5vw;
+    margin-left: 0vw;
+}
+
+.register-div .name {
+    margin-left: 0vw;
+    margin-top: 5vw !important;
+}
+
+.register-div .user {
+    margin-left: 0vw;
+    margin-top: 10.5vw;
+}
+
+.register-div .pw {
+    margin-left: 0vw;
+    margin-top: 22.5vw;
+}
+
+.register-div .c-pw {
+    margin-left: 0vw;
+    margin-top: 28.5vw;
+}
+
+.register-div .email-l {
+    margin-left: 0;
+    margin-top: 14.5vw;
+}
+
+.register-div .email {
+    margin-left: 0;
+    margin-top: 16.5vw;
+}
+
+.register-div .btn {
+    margin-top: 35vw;
+    background: #111;
+    color: #eee;
+    border: none;
+    height: 2.5vw;
+    border-radius: 1.5vw;
+    width: 10vw !important;
+    cursor: pointer;
+    font-size: 1vw;
+}
+
+.user-r, .retail {
+    position: absolute;
+    margin-top: 32vw;
+}
+
+.retail {
+    margin-left: 15vw;
+}
+
+.prof-img {
+    width: 40vw;
+    height: 40vw;
+    border-radius: 100%;
+    margin-top: 5vw;
+    margin-left: 5vw;
+}
+
+.btn-arr {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.904);
+    margin-top: 1.5vw;
+    margin-left: 1.5vw;
+    width: 3.5vw;
+    height: 3.5vw;
+    font-size: 2.5vw;
+    font-weight: 600;
+    border-radius: 100%;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+.btn-arr span {
+    position: absolute;
+    margin-top: -1.25vw;
+    margin-left: -1.75vw;
+}
+
+.profile-div {
+    position: absolute;
+}
+
+.profile-div .name-p, .profile-div .user-p, .profile-div .type-p, .profile-div .email-p {
+    font-weight: 500;
+    font-size: 1.5vw;
+    position: absolute;
+}
+
+.name-p {
+    margin-top: -35vw;
+    margin-left: 50vw;
+}
+
+.user-p {
+    margin-left: 50vw;
+    margin-top: -28.5vw;
+}
+
+.email-p {
+    margin-left: 50vw;
+    margin-top: -22vw;
+}
+
+.type-p {
+    margin-left: 50vw;
+    margin-top: -15vw;
+}
+
+.name-d, .email-d, .type-d, .user-d {
+    background: #eee;
+    width: 25vw;
+    height: 3.5vw;
+    position: absolute;
+    border-radius: 1vw;
+    font-size: 1.4vw;
+    color: grey;
+    margin-left: 50vw;
+}
+
+.name-d {
+    margin-left: 50vw;
+    margin-top: -32.5vw;
+}
+
+.name-d p, .email-d p, .type-d p, .user-d p {
+    position: absolute;
+    margin-top: 1vw;
+    margin-left: 1.5vw;
+}
+
+.user-d {
+    margin-top: -26vw;
+}
+
+.email-d {
+    margin-top: -19.5vw;
+}
+
+.type-d {
+    margin-top: -12.5vw;
+}
+
+.or, .ors {
+    position: absolute;
+}
+
+.or {
+    margin-left: 50vw;
+}
+
+.ors {
+    margin-left: 60vw;
+}
+
+.nav-dashboard img {
+    width: 2.5rem;
+    height: 2.5rem;
+    position: absolute;
+    margin-top: 2.75vw;
+    margin-left: 5vw;
+}
+
+.nav-dashboard ul {
+    list-style: none;
+    margin-left: 85vw;
+}
+
+.nav-dashboard ul li {
+    position: absolute;
+}
+
+.user-n {
+    font-weight: 500;
+    font-size: 1.25vw;
+    margin-top: 3.5vw;
+    margin-left: -2.5vw;
+}
+
+.gear-n {
+    font-weight: 500;
+    font-size: 1.5vw;
+    margin-left: 6.5vw;
+    margin-top: 3.5vw;
+}
+
+.nav-dashboard input {
+    position: absolute;
+    width: 45vw;
+    height: 3.5vw;
+    border-radius: 1.5vw;
+    border: 2px solid rgba(207, 207, 207, 0.95);
+    background: #eee;
+    padding-left: 2.5vw;
+    font-size: 1.5vw;
+    margin-top: 2.5vw;
+    margin-left: 22.5vw;
+    z-index: 5;
+}
+
+.nav-dashboard input:focus {
+    outline: none;
+}
+
+.line-1 {
+    position: absolute;
+    min-height: 100%;
+    width: 0.25vw;
+    background: #eee;
+    margin-left: 15vw;
+    overflow: auto
+}
+
+.line-2 {
+    position: absolute;
+    background: #eee;
+    height: 0.25vw;
+    width: 85%;
+    margin-left: 15vw;
+    margin-top: 8.5vw;
+}
+
+.log {
+    position: absolute;
+    font-size: 1.5vw;
+    font-weight: 500;
+    margin-left: 2vw;
+    margin-top: 45vw;
+}
+
+.log-out {
+    position: absolute;
+    font-size: 1.25vw;
+    font-weight: 500;
+    margin-left: 4.5vw;
+    margin-top: 45vw;
+}
+
+.cloth, .clothes {
+    position: absolute;
+    font-weight: 500;
+    margin-top: 10vw;
+}
+
+.cloth {
+    margin-left: 3.5vw;
+}
+
+.clothes {
+    margin-left: 1.5vw;
+    padding-top: 0.2vw;
+}
+
+.arrival-div {
+    height: 19vw;
+    width: 20vw;
+    background-color: #111;
+    color: #eee;
+    position: absolute;
+    margin-left: 0vw;
+    margin-top: 21vw;
+    border-radius: 0.5vw;
+    text-align: center;
+}
+
+.arr-1, .arr-2 {
+    position: absolute;
+}
+
+.arr-1 {
+    margin-top: 5vw !important;
+    font-size: 1.5vw !important;
+    margin-left: -0.25vw !important;
+}
+
+.arr-2 {
+    font-size: 3vw !important;
+    margin-left: -0.35vw !important;
+    margin-top: 7.5vw !important;
+    letter-spacing: 2px !important;
+}
+
+.sale-div {
+    width: 80%;
+    height: 20vw;
+    background: #111;
+    border-radius: 0.5vw;
+    position: absolute;
+    margin-top: 13.5vw;
+    margin-left: 18.5vw;
+}
+
+.sale-div h1 {
+    color: #fff;
+    position: absolute;
+    font-size: 2.25vw;
+    z-index: 3;
+    font-weight: 900;
+    margin-left: 1.5vw;
+    margin-top: 13vw;
+    letter-spacing: 2px;
+}
+
+.dash-card {
+    position: absolute;
+    margin-left: 20vw;
+    margin-top: 35vw;
+}
+
+.dash-list {
+    display: flex;
+    margin-bottom: 2.5vw;
+}
+
+.card {
+    background: #eee;
+    height: 27.5vw;
+    width: 17.5vw;
+    margin-right: 2.5vw;
+    border-radius: 0.5vw;
+}
+
+.card-img {
+    position: absolute;
+    height: 13.5vw;
+    width: 13.5vw;
+    background: url('');
+    background-size: cover;
+    margin-left: 2vw;
+    margin-top: 1vw;
+    border-radius: 1vw;
+}
+
+.card-desc {
+    position: absolute;
+    margin-left: 2vw;
+    margin-top: 15vw;
+    width: 14.5vw;
+}
+
+.dash-card-1 {
+    position: absolute;
+    margin-top: 20.5vw;
+    margin-left: 20vw;
+    display: flex;
+}
+
+.card-div {
+    margin-left: 1.5vw;
+}
+
+.card-1 {
+    background: #f1f1f1;
+    position: absolute;
+    height: 20vw;
+    width: 17.5vw;
+    z-index: 3;
+    margin-left: 38.5vw;
+    border-radius: 0.5vw;
+}
+
+.card-2 {
+    background: #f1f1f1;
+    position: absolute;
+    height: 20vw;
+    width: 17.5vw;
+    z-index: 3;
+    margin-left: 57vw;
+    border-radius: 0.5vw;
+}
+
+.line-3 {
+    position: absolute;
+    height: 12.5vw;
+    width: 0.25vw;
+    background: rgb(214, 214, 214);
+    margin-left: 55.5vw;
+    margin-top: 38.5vw;
+}
+
+.order-nav {
+    list-style: none;
+    position: absolute;
+}
+
+.order-nav li {
+    position: absolute;
+    margin-top: 41.5vw;
+}
+
+.order-div h1 {
+    position: absolute;
+    margin-left: 58.5vw;
+    margin-top: 37.5vw;
+}
+
+.no, .ord, .date {
+    font-weight: 700;
+    font-size: 1.2vw;
+}
+
+.no {
+    margin-left: 58.5vw;
+}
+
+.ord {
+    margin-left: 65vw;
+}
+
+.date {
+    margin-left: 75vw;
+}
+
+.qty-1 {
+    position: absolute;
+    list-style: none;
+}
+
+.qty-1 li {
+    position: absolute;
+    margin-top: 45vw;
+}
+
+.qty-no {
+    margin-left: 60.5vw;
+}
+
+.qty-item {
+    margin-left: 65vw;
+}
+
+.qty-date {
+    margin-left: 75vw;
+}
+
+.qty-2 {
+    position: absolute;
+    list-style: none;
+}
+
+.qty-2 li {
+    position: absolute;
+    margin-top: 47vw;
+}
+
+.prod-dashboard {
+    position: absolute;
+}
+
+.prod-dashboard h1 {
+    position: absolute;
+    margin-top: 12.5vw;
+    margin-left: 17.5vw;
+}
+
+.prod-dashboard img {
+    position: absolute;
+    width: 25vw;
+    height: 25vw;
+    border-radius: 1.5vw;
+    margin-left: 17.5vw;
+    margin-top: 17.5vw;
+}
+
+.prod-info {
+    margin-top: 7vh;
+}
+
+.prod-dashboard p {
+    position: absolute;
+    margin-left: 50vw;
+    margin-top: 20vw;
+    width: 45vw;
+}
+
+.prod-dashboard h4 {
+    position: absolute;
+    margin-left: 50vw;
+    margin-top: 38.5vw;
+    font-weight: 600;
+}
+
+.prod-dashboard .use {
+    position: absolute;
+    margin-left: 55vw;
+    margin-top: 38.5vw;
+    font-weight: 400;
+}
+
+.prod-dashboard h5 {
+    font-size: 1.5vw;
+    position: absolute;
+    margin-left: 50vw;
+    margin-top: 40vw;
+    font-weight: 600;
+}
+
+.prod-dashboard input {
+    width: 10vw;
+    height: 2.5vw;
+    position: absolute;
+    margin-left: 50vw;
+    margin-top: 25vw;
+    padding-left: 1vw;
+    font-size: 1vw;
+    padding-right: 0.5vw;
+    border-radius: 0.5vw;
+    border: 1px solid #111;
+}
+
+.prod-dashboard input:focus {
+    outline: none;
+}
+
+.prod-dashboard button {
+    position: absolute;
+    width: 5vw;
+    height: 2.5vw;
+    padding: 10px;
+    background: #111;
+    color: #eee;
+    cursor: pointer;
+    font-size: 1.25vw;
+    border: none;
+    border-radius: 0.5vw;
+    margin-top: 25vw;
+    margin-left: 60.5vw;
+}
+
+.sell-p {
+    position: absolute;
+    margin-top: 13.5vw;
+    margin-left: 20vw;
+    width: 15vw;
+    height: 3.5vw;
+    color: #eee;
+    background: #111;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1.25vw;
+}
+
+.sold-p {
+    position: absolute;
+    margin-top: 13.5vw;
+    margin-left: 60vw;
+    width: 15vw;
+    height: 3.5vw;
+    color: #eee;
+    background: #111;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1.25vw;
+}
+
+.see-p {
+    position: absolute;
+    margin-top: 13.5vw;
+    margin-left: 40vw;
+    width: 15vw;
+    height: 3.5vw;
+    color: #eee;
+    background: #111;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1.25vw;
+}
+
+.consumer-div {
+    position: absolute;
+}
+
+.consumer-div h1 {
+    position: absolute;
+    margin-left: 20vw;
+    margin-top: 20vw;
+}
+
+.prod-img-r {
+    position: absolute;
+    width: 40vw;
+    height: 30vw;
+    margin-top: 7.5vw;
+    margin-left: 55vw;
+}
+
+.sell-form {
+    position: absolute;
+}
+
+.sell-form .title, .sell-form .description, .sell-form .price, .sell-form .image, .sell-form .category, .sell-form .quan {
+    position: absolute;
+    height: 2.5vw;
+    position: absolute;
+    border: none;
+    border-radius: 1.5vw;
+    background: #eee;
+    padding-left: 1.5vw;
+    font-size: 1vw;
+    color: gray;
+    padding-right: 1vw;
+    width: 27.5vw;
+    margin-left: 5vw;
+}
+
+.sell-form input:focus {
+    outline: none;
+}
+
+.sell-form-submit {
+    width: 20vw;
+    height: 2.5vw;
+    border: none;
+    background: #111;
+    color: #fff;
+    font-size: 1vw;
+    border-radius: 1.5vw;
+    position: absolute;
+    cursor: pointer;
+    margin-left: 25vw;
+    margin-top: 45vw;
+}
+
+.title-l {
+    margin-top: 7.5vw;
+    margin-left: 5vw;
+    position: absolute;
+}
+
+.title {
+    margin-top: 10vw;
+}
+
+.desc-l {
+    margin-top: 13.5vw;
+    position: absolute;
+    margin-left: 5vw;
+}
+
+.description {
+    margin-top: 15.5vw;
+}
+
+.price-l {
+    margin-left: 5vw;
+    position: absolute;
+    margin-top: 19vw;
+}
+
+.price {
+    margin-top: 21vw;
+}
+
+.quan-l {
+    position: absolute;
+    margin-left: 5vw;
+    margin-top: 24.5vw;
+}
+
+.quan {
+    position: absolute;
+    margin-top: 26.5vw;
+}
+
+.image-l {
+    margin-left: 5vw;
+    position: absolute;
+    margin-top: 30vw;
+}
+
+.image {
+    margin-top: 32vw;
+}
+
+.category-l {
+    position: absolute;
+    margin-left: 5vw;
+    margin-top: 35vw;
+}
+
+.category {
+    margin-top: 37.5vw;
+}
+
+.consumer-log {
+    position: absolute;
+}
+
+.consumer-log .cons-h1 {
+    margin-left: 17.5vw;
+    margin-top: 10vw;
+}
+
+.order-log {
+    position: absolute;
+}
+
+.order-log .ord-h1 {
+    margin-left: 17.5vw;
+    margin-top: 10vw;
+}
+
+.card-div-list {
+    position: absolute;
+    margin-top: 13.5vw;
+    margin-left: 18.5vw;
+    display: flex;
+}
+
+.card-l {
+    margin-left: 1.5vw;
+    width: 17.5vw;
+    height: 25.5vw;
+    background: #eee;
+    border-radius: 1vw;
+}
+
+.card-l .stop {
+    background-color: #111;
+    color: #eee;
+    font-size: 1vw;
+    height: 2.5vw;
+    position: absolute;
+    width: 15.5vw;
+    margin-left: 1vw;
+    margin-top: 22vw;
+    border-radius: 0.5vw;
+    border: none;
+    cursor: pointer;
+}
+
+.sell-title {
+    position: absolute;
+    margin-left: 17.5vw;
+    margin-top: 10vw;
+}
+
+.order-1 {
+    margin-left: 17.5vw;
+    width: 75%;
+    height: 10vw;
+    background: #eee;
+    border-radius: 1.5vw;
+    padding: 10px;
+    margin-top: 2.5vw;
+}
+
+.ord-desc {
+    margin-left: 1.5vw;
+    margin-top: 0.5vw;
+    cursor: pointer;
+}
+
+.ord-desc h1 {
+    font-size: 2vw;
+}
+
+.sum-order {
+    margin-top: 10vw;
+    position: absolute;
+}
+
+.sum-desc {
+    margin-left: 17.5vw;
+}
+
+.sum-desc h1 {
+    padding-top: 0.5vw;
+    padding-bottom: 1vw;
+}
+
+.sum-desc h3, h4 {
+    padding-left: 1vw;
+}
+
+.sum-card-list {
+    display: flex;
+    margin-left: 17.5vw;
+    margin-top: 2.5vw;
+}
+
+.sum-card-img {
+    width: 15vw;
+    height: 15vw;
+    margin-left: 1.5vw;
+    margin-top: 1vw;
+    border-radius: 1vw;
+    background: url('');
+    background-size: cover;
+}
+
+.sum-card {
+    height: 24vw;
+    width: 17.5vw;
+    background: #eee;
+    border-radius: 1vw;
+    margin-right: 1.5vw;
+}
+
+.sum-card-desc {
+    margin-top: 0.5vw;
+    margin-left: 1.5vw;
+}
+
+.img-404 {
+    margin-top: 8.5vw;
+    margin-left: 25vw;
+    position: absolute;
+    width: 45vw;
+    height: 35vw;
+}
+
+/* The Overlay (background) */
+
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */
+    height: 100%;
+    width: 0;
+    position: fixed;
+    /* Stay in place */
+    z-index: 100;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    background-color: rgb(0, 0, 0);
+    /* Black fallback color */
+    background-color: rgba(0, 0, 0, 0.9);
+    /* Black w/opacity */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    transition: 0.5s;
+    /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+/* Position the content inside the overlay */
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    /* 25% from the top */
+    width: 100%;
+    /* 100% width */
+    text-align: center;
+    margin-top: 50vw;
+    /* Centered text/links */
+    /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+
+.overlay a {
+    text-decoration: none;
+    font-size: 5vw;
+    color: #818181;
+    display: block;
+    /* Display block instead of inline */
+    transition: 0.3s;
+    text-align: center;
+    margin-left: -42.5vw;
+    margin-top: 5vw;
+    /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+/* Position the close button (top right corner) */
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+
+@media screen and (max-height: 450px) {
+    .overlay a {
+        font-size: 20px
+    }
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}

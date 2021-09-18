@@ -1,24 +1,68 @@
-<h1 onclick="new function(){
-    window.location.href = window.location.origin+'/consumer';}">
-    Dashboard
-</h1>
+<body>
+    <div class="nav-dashboard">
+        <img src="https://media.discordapp.net/attachments/741244174736556076/887655770739601418/unknown.png"
+            alt="Dashboard" onclick="new function(){
+                    window.location.href = window.location.origin+'/dashboard';}">
 
-<% if (products.length>0){ %>
-<%for (var i =0; i < products.length; i++) {%>
-<div onclick="RedirectToDetailed('<%= i %>')">
-    <hr />
-    <h2>Order No. <%= i+1 %> - Details</h2>
-    <h3>Total Cost : $<%=products[i].total %></h3>
-    <h4>
-        Adress : <%=products[i].address + '\n' + products[i].city + '\n' +
-    products[i].state + '\n' +products[i].pin%>
-    </h4>
-    <h4>Card Used : <%= products[i].cc %></h4>
-</div>
-<%}%> 
-<%}else{%>
-<h2>Please Buy Products To Get Started</h2>
-<% } %>
+        <form class="search-form" onclick="preventDefault();" action="/consumer" method="post">
+            <input type="text" id="query" name="query" class="query" placeholder="Search">
+        </form>
+
+        <ul onclick="new function(){window.location.href='/profile'}">
+            <li class="user-n">Profile</li>
+            <li class="gear-n">
+                <span class="material-icons-round">
+                    settings
+                </span>
+            </li>
+        </ul>
+        <span class="material-icons-outlined clothes">
+            sell
+        </span>
+        <h4 class="cloth" onclick="new function(){window.location.href='/consumer/cart'}">Cart</h4>
+        <% if (user.type_of_user == true){%>
+        <h4 class="cloth" onclick="new function(){window.location.href='/dashboard'}"
+            style="margin-top: 14vw; font-weight: bold;">Retailer Dashboard</h4>
+        <h4 class="cloth" onclick="new function(){window.location.href='/consumer'}"
+            style="margin-top: 16vw; font-weight: bold;">Consumer Dashboard</h4>
+        <% } %>
+        <h4 class="cloth" onclick="new function(){window.location.href='/consumer/my_orders'}"
+            style="margin-top: 12vw; font-weight: bold;">Order Placed</h4>
+
+        <div id="logout_click_div" onclick="Logout()">
+            <span class="material-icons-outlined log">
+                logout
+            </span>
+            <h4 class="log-out">
+                Logout
+            </h4>
+        </div>
+
+    </div>
+    <div class="line-1"></div>
+    <div class="line-2"></div>
+
+    <div class="order-log">
+        <h1 class="ord-h1">My Orders</h1>
+        <% if (products.length>0){ %>
+        <%for (var i =0; i < products.length; i++) {%>
+        <div class="order-1" onclick="RedirectToDetailed('<%= i %>')">
+            <div class="ord-desc">
+                <h1 class="ord-no">Order No. <%= i+1 %> - Details</h1>
+                <h3 class="ord-cost">Total Cost : $<%=products[i].total %></h3>
+                <h4 class="card-used">Card Used: <%= products[i].cc %></h4>
+                <h4 class="address">Address:
+                    <%=products[i].address + ',\n' + products[i].city + ',\n' +products[i].state + ',\n' +products[i].pin%>
+                </h4>
+            </div>
+        </div>
+        <%}%> 
+        <%}else{%>
+        <h2>Please Buy Products To Get Started</h2>
+        <% } %>
+    </div>
+</body>
+
 <script>
     async function RedirectToDetailed(did) {
         window.location.href =
