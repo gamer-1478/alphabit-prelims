@@ -181,7 +181,9 @@ router.get('/cart', checkAuthenticated, async (req, res) => {
         while (j < len) {
             j += 2
             testArray.push(products.splice(0, 2))
-            if (j >= len - 1) {
+            console.log(j, len)
+            if (j >= len) {
+                console.log(testArray)
                 res.render('pages/cart.ejs', { title: "Cart", user: req.user, "cart": testArray })
             }
         }

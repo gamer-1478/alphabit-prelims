@@ -942,6 +942,7 @@ input:checked+.slider:before {
     position: absolute;
     margin-left: 2vw;
     margin-top: 15vw;
+    width: 14.5vw;
 }
 
 .dash-list-c .card {
