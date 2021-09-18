@@ -85,7 +85,7 @@ router.get('/view_products', checkAuthenticated, async (req, res) => {
 
 
 router.get('/view_products_sold', checkAuthenticated, async(req,res)=>{
-    
+    res.render('pages/viewRetailerSold', { title: "Products Sold", user: req.user, retailer_products: req.user.retailer_orders})
 })
 router.post('/remove', checkAuthenticated, async (req, res) => {
     Product.findById(req.body.id).remove().then(async (resp, err) => {

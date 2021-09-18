@@ -199,7 +199,7 @@ router.post('/checkout', checkAuthenticated, async (req, res) => {
                     retailer_orders: admin.firestore.FieldValue.arrayUnion(
                         {
                             name: name,
-                            address: address_1 + "\n" + address_2,
+                            address: address_1 + ",\n" + address_2,
                             city: city,
                             state: state,
                             country: country,
@@ -229,7 +229,7 @@ router.post('/checkout', checkAuthenticated, async (req, res) => {
     res.render('pages/summary', { order_id: order_id, pin: pin, total: total_price, cart: cart, title: 'Order Summary', name: name, address_1: address_1, address_2: address_2, city: city, state: state, country: country, cc: cc })
 
     userCollection.doc(req.user.username).update({
-        orders: admin.firestore.FieldValue.arrayUnion({ order_id: order_id, pin: pin, order: cart, total: total_price, name: name, address: address_1 + '\n' + address_2, city: city, state: state, country: country, cc: cc })
+        orders: admin.firestore.FieldValue.arrayUnion({ order_id: order_id, pin: pin, order: cart, total: total_price, name: name, address: address_1 + ',\n' + address_2, city: city, state: state, country: country, cc: cc })
     }).then((result) => {
         console.log('Order added In Consumer Orders')
         userCollection.doc(req.user.username).update({
