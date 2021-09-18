@@ -183,7 +183,6 @@ router.get('/cart', checkAuthenticated, async (req, res) => {
             testArray.push(products.splice(0, 2))
             console.log(j, len)
             if (j >= len) {
-                console.log(testArray)
                 res.render('pages/cart.ejs', { title: "Cart", user: req.user, "cart": testArray })
             }
         }

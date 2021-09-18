@@ -1371,13 +1371,9 @@ input:checked+.slider:before {
     margin-top: 10vw;
 }
 
-.order-log {
-    position: absolute;
-}
-
 .order-log .ord-h1 {
-    margin-left: 17.5vw;
-    margin-top: 10vw;
+    padding-left: 17.5vw;
+    padding-top: 10vw;
 }
 
 .card-div-list {
