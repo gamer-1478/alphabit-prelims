@@ -44,6 +44,8 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
                         password: hashedPassword,
                         products:[],
                         cart:[],
+                        orders:[],
+                        retailer_orders: [],
                         type_of_user: req.body.type_of_user
 
                     }).then(async () => {

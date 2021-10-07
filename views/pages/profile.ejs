@@ -1,40 +1,37 @@
-<div>
-    <h1>
-        User Profile
-    </h1>
-    <p>
-        Username : <%= user.username %>
-    </p><br>
-    <p>
-        name : <%= user.name %>
-    </p><br>
-    <p>
-        Account Type : <%= usertype %>
-    </p><br>
-    <p>
-        Email : <%= user.email %>
-    </p><br>
-    <!--<% if (usertype == 'Retailer'){ %>
-    <button>Retailer Dashboard</button><br>
-    <button>Consumer Dashboard</button>
-    <p></p><br>
-    <% } %>-->
-
-    <button onclick="Logout()">
-        Logout
+<body>
+    <button class="btn-arr">
+        <span class="material-icons-outlined" onclick="new function(){window.location.href='/dashboard'}">
+            arrow_back
+        </span>
     </button>
-</div>
-
-<script>
-    async function Logout() {
-        await fetch(
-            '/logout', {
-                method: "delete",
-                redirect: 'follow'
-            }).then(response => {
-            if (response.redirected) {
-                window.location.href = response.url;
-            }
-        })
-    }
-</script>
+    <img class="prof-img"
+        src="https://media.discordapp.net/attachments/741244174736556076/887997280215511040/unknown.png?width=526&height=513"
+        alt="">
+    <div class="profile-div">
+        <h4 class="name-p">
+            Name
+        </h4>
+        <div class="name-d">
+            <p><%= user.name %></p>
+        </div>
+        <h4 class="user-p">
+            Username
+        </h4>
+        <div class="user-d">
+            <p><%= user.username %></p>
+        </div>
+        <h4 class="email-p">
+            Email
+        </h4>
+        <div class="email-d">
+            <p><%= user.email %></p>
+        </div>
+        <h4 class="type-p">
+            User Type
+        </h4>
+        <div class="type-d">
+            <p><%= usertype %></p>
+        </div>
+        <h4 class="or" onclick="new function(){window.location.href='/consumer/my_orders'}">Orders Placed</h4>
+    </div>
+</body>

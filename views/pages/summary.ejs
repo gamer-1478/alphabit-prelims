@@ -1,10 +1,31 @@
-<h1>Successfully Place Order</h1>
-<p><%=name%></p><br>
-<p><%=address_1%></p><br>
-<p><%=address_2%></p><br>
-<p><%=city%></p><br>
-<p><%=state%></p><br>
-<p><%=country%></p><br>
-<p><%=cc%></p><br>
-
-
+<div class="sum-order">
+    <div class="sum-desc">
+        <h1 class="ord-no">Successfully Placed Order</h1>
+        <h3 class="ord-cost">Total Cost : $<%=total  %></h3>
+        <h4 class="card-used">Card Used: <%= cc %></h4>
+        <h4 class="address">Address: <%=address_1+','+address_2%></h4>
+        <h4>City: <%= city %></h4>
+        <h4>State: <%= state %></h4>
+        <h4>Country: <%= country %></h4>
+        <h4>Pin: <%= pin %></h4>
+    </div>
+    <div class="sum-card-list">
+        <%for (var i =0; i < cart.length; i++) {%>
+        <div class="sum-card" id='<%= cart[i].id %>'>
+            <div class="sum-card-img" style="background: url('<%=cart[i]['image_']%>'); background-size: cover;">
+            </div>
+            <div class="sum-card-desc">
+                <h3><%=cart[i].title%></h3>
+                <h5>Price:$ <%=cart[i].price%></h5>
+                <h5>Quantity Ordered:<%= cart[i].count %></h5>
+                <h5>Product Total:$ <%= cart[i].count*cart[i].price %></h5>
+            </div>
+        </div>
+        <%}%>
+    </div>
+</div>
+<div class="summary-card-retailer">
+<button onclick="new function(){
+    window.location.href = window.location.origin + '/consumer/my_orders'
+}">Continue To Site --></button>
+</div>

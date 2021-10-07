@@ -1,35 +1,89 @@
 <div>
     <div id="mainFront">
-        <button onclick="sellProduct()">Sell A New Product</button>
-        <button onclick="seeListedProducts()">See Your Listed Products</button>
+
+        <body>
+            <div class="nav-dashboard">
+                <img src="https://media.discordapp.net/attachments/741244174736556076/887655770739601418/unknown.png"
+                    alt="Dashboard" onclick="new function(){
+                    window.location.href = window.location.origin+'/dashboard';}">
+
+                <form class="search-form" onclick="preventDefault();" action="/consumer" method="post">
+                    <input type="text" id="query" name="query" class="query" placeholder="Search">
+                </form>
+
+                <ul onclick="new function(){window.location.href='/profile'}">
+                    <li class="user-n">Profile</li>
+                    <li class="gear-n">
+                        <span class="material-icons-round">
+                            settings
+                        </span>
+                    </li>
+                </ul>
+                <span class="material-icons-outlined clothes">
+                    sell
+                </span>
+                <h4 class="cloth" onclick="new function(){window.location.href='/consumer/cart'}">Cart</h4>
+                <% if (user.type_of_user == true){%>
+                <h4 class="cloth" onclick="new function(){window.location.href='/dashboard'}"
+                    style="margin-top: 14vw; font-weight: bold;">Retailer Dashboard</h4>
+                <h4 class="cloth" onclick="new function(){window.location.href='/consumer'}"
+                    style="margin-top: 16vw; font-weight: bold;">Consumer Dashboard</h4>
+                <% } %>
+                <h4 class="cloth" onclick="new function(){window.location.href='/consumer/my_orders'}"
+                    style="margin-top: 12vw; font-weight: bold;">Order Placed</h4>
+
+                <div id="logout_click_div" onclick="Logout()">
+                    <span class="material-icons-outlined log">
+                        logout
+                    </span>
+                    <h4 class="log-out">
+                        Logout
+                    </h4>
+                </div>
+
+            </div>
+            <div class="line-1"></div>
+            <div class="line-2"></div>
+            <div class="retail-div">
+                <button onclick="sellProduct()" class="sell-p">Sell a new product</button>
+                <button onclick="seeListedProducts()" class="see-p">See your listed Products</button>
+                <button onclick="seeSoldProducts()" class="sold-p">See Products You Have Sold</button>
+            </div>
     </div>
+    </body>
+</div>
 
-    <div id='SellProductForm' style="visibility: hidden;">
-        <i class="fas fa-arrow-left" onclick="goBack()"></i>
+<div id='SellProductForm' style="visibility: hidden;">
 
-        <form class="sell-form" onsubmit="event.preventDefault(); dashboardSellProduct()">
-            <label for="title">Enter Product Title</label>
-            <input type="text" id="title" name="title" class="title"><br><br>
+    <body>
+        <button class="btn-arr" onclick="goBack()">
+            <span class="material-icons-outlined">
+                arrow_back
+            </span>
+        </button>
+        <div class="prod-form">
+            <form class="sell-form" onsubmit="event.preventDefault(); dashboardSellProduct()">
+                <label for="title" class="title-l">Enter Product Title</label>
+                <input type="text" id="title" name="title" class="title">
+                <label for="description" class="desc-l">Enter Product Description</label>
+                <input type="text" id="description" name="description" class="description">
+                <label for="price" class="price-l">Enter Product Price in USD</label>
+                <input type="number" id="price" name="price" class="price" value="1" min="1" max="1000">
+                <label for="quan" class="quan-l">Enter Product Quantity You Want To Sell</label>
+                <input type="number" id="quan" name="quan" class="quan" value="1" min="1" max="100">
+                <label for="image" class="image-l">Enter Product image link (it must end with .png or .jpg)</label>
+                <input type="text" id="image" name="image" class="image">
+                <label for="category" class="category-l">Enter Product category</label>
+                <input type="text" id="category" name="category" class="category">
+                <input type="submit" value="Add Product To Catalouge" class="sell-form-submit" id="sell-form-submit">
+            </form>
+        </div>
+        <img src="https://media.discordapp.net/attachments/741244174736556076/888411632470986802/unknown.png?width=719&height=513"
+            alt="" class="prod-img-r">
+    </body>
 
-            <label for="description">Enter Product Description</label>
-            <input type="text" id="description" name="description" class="description"><br><br>
+</div>
 
-            <label for="price">Enter Product Price in US DOLLARS</label>
-            <input type="number" id="price" name="price" class="price" value="1" min="1" max="1000"><br><br>
-
-            <label for="quan">Enter Product Quantity You Want To Sell</label>
-            <input type="number" id="quan" name="quan" class="quan" value="1" min="1" max="100"><br><br>
-
-            <label for="image">Enter Product image link (it must end with .png or .jpg)</label>
-            <input type="text" id="image" name="image" class="image"><br><br>
-
-            <label for="category">Enter Product category</label>
-            <input type="text" id="category" name="category" class="category"><br><br>
-
-
-            <input type="submit" value="Add Product To Catalouge" class="sell-form-submit" id="sell-form-submit">
-        </form>
-    </div>
 </div>
 
 <script>
@@ -38,6 +92,10 @@
     async function seeListedProducts() {
         window.location.href = window.location.origin + '/retailer/view_products'
     }
+    async function seeSoldProducts() {
+        window.location.href = window.location.origin + '/retailer/view_products_sold'
+    }
+
 
     async function testImage(url) {
         return new Promise(function (resolve, reject) {

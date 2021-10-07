@@ -1,24 +1,36 @@
-<i class="fas fa-arrow-left" onclick="new function(){
-    window.location.href = window.location.origin + '/dashboard'}"></i>
+<body id="hmm_test">
+    <button class="btn-arr">
+        <span class="material-icons-outlined" onclick="new function(){window.location.href='/dashboard'}">
+            arrow_back
+        </span>
+    </button>
 
-<% if (retailer_products.length!=0){ %>
-<% for(var i=0; i < retailer_products.length; i++) { %>
-<hr>
-<div style="margin: 20px;">
-    <img src="<%=retailer_products[i]['image_']%>" style="height: 100px; width:100px;" />
 
-    <p>Title : <%= retailer_products[i].title %></p>
-    <p>Description : <%= retailer_products[i].description %></p>
-    <p>Category : <%= retailer_products[i].category %></p>
-    <p>Price : $ <%= retailer_products[i].price %></p>
-    <p>Quantity Left : <%= retailer_products[i].quan %></p>
-    <button onclick="RemoveItem('<%= retailer_products[i].id %>')">Stop Selling Item</button>
-</div>
-<% } %>
-<%}else{ %>
+    <div class="dash-card-retailer">
+        <%for (var i =0; i < products.length; i++) {%>
+        <div class="dash-list">
+            <% for (var a=0; a < products[i].length; a++) {%>
+            <div class="card" onclick="Redirect('<%= products[i][a]._id %>')">
+                <!--@ts-ignore-->
+                <div class="card-img" style="background: url('<%=products[i][a]['image_']%>'); background-size: cover;">
+                </div>
+                <div class="card-desc">
+                    <h2 style="font-size: 18px;"><%=products[i][a].title%></h2><br>
+                    <h4>Price: $<%=products[i][a].price%></h4>
+                    <h4>Category: <%=products[i][a].category%></h4>
+                    <h4>Quantity Left : <%= products[i][a].quan %></h4>
+                    <br>
+                    <button onclick="RemoveItem('<%= products[i][a].id %>')">Stop Selling Item</button>
 
-<h1>Please Add Products In your Catalouge</h1>
-<%}%>
+                </div>
+            </div>
+            <%}%>
+        </div>
+        <%}%>
+
+
+        </div>
+</body>
 
 <script>
     var notyf = new Notyf();
@@ -27,18 +39,17 @@
         const resp = await fetch(window.location.origin + '/retailer/remove', {
             method: 'POST',
             body: JSON.stringify({
-                id:id
+                id: id
             }),
             headers: {
-            "Content-Type": "application/json; charset=utf-8"
+                "Content-Type": "application/json; charset=utf-8"
             }
-        }).then(async(response)=>{
-           var response_ = await response.json()
-            if (response_.success == true){
+        }).then(async (response) => {
+            var response_ = await response.json()
+            if (response_.success == true) {
                 notyf.success(response_.message)
-                window.location.href = window.location.origin+'/dashboard'
-            }
-            else{
+                window.location.href = window.location.origin + '/dashboard'
+            } else {
                 notyf.error(response_.message)
                 notyf.error(response_.error)
             }

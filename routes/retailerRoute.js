@@ -54,18 +54,36 @@ router.get('/view_products', checkAuthenticated, async (req, res) => {
 
         if (products_fire.length != 0) {
             var products = await Promise.all(products_fire.map(async (element, index, array) => {
-                return await Product.findById(element).then((result) => {
+                return await Product.findById(element).then((result, error) => {
+                    if (error){
+                        console.log(error)
+                        res.send("ran into error", error)
+
+                    }
+                    if(result == null){
+                        res.send({message:"ran into error", result:result,element })
+
+                    }
+
                     return (result)
                 })
             })
             ).then(result => {
                 return result
             })
+            var testArray = []
+            var j = 0, len = await products.length;
+            while (j < len) {
+                j += 4
+                testArray.push(await products.splice(0, 4))
+                if (j >= len - 1) {
+                    res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, products: testArray })
+                }
+            }
 
-            res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, retailer_products: await products })
         }
         else {
-            res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, retailer_products: [] })
+            res.render('pages/viewRetailerProducts', { title: "View Retailer Products", user: req.user, products: [] })
         }
     }
     else {
@@ -73,6 +91,9 @@ router.get('/view_products', checkAuthenticated, async (req, res) => {
     }
 })
 
+router.get('/view_products_sold', checkAuthenticated, async(req,res)=>{
+    res.render('pages/viewRetailerSold', { title: "Products Sold", user: req.user, retailer_products: req.user.retailer_orders})
+})
 router.post('/remove', checkAuthenticated, async (req, res) => {
     Product.findById(req.body.id).remove().then(async (resp, err) => {
         if (err) {

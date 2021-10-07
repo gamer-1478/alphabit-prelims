@@ -41,31 +41,35 @@
     </div>
     <div class="line-1"></div>
     <div class="line-2"></div>
-    <div class="prod-dashboard">
-        <h1><%=product.title%></h1>
-        <img src="<%=product['image_']%>" alt="">
-        <p>
-            <%=product.description%>
-        </p>
-        <h5>USD $ - <%=product.price%></h5>
-        <br><br><br>
-        <div class="prod-info">
-            <p>Category : <%=product.category%></p><br>
-            <p>Rating : <%= product.rating.rate %> </p><br>
-            <p>Verified Reviewers : <%= product.rating.count %> </p><br>
-            <p>Quantity Left : <%= product.quan %></p><br>
+
+    <div class="order-log">
+        <h1 class="ord-h1">My Orders</h1>
+        <% if (products.length>0){ %>
+        <%for (var i =0; i < products.length; i++) {%>
+        <div class="order-1" onclick="RedirectToDetailed('<%= i %>')">
+            <div class="ord-desc">
+                <h1 class="ord-no">Order No. <%= i+1 %> - Details</h1>
+                <h3 class="ord-cost">Total Cost : $<%=products[i].total %></h3>
+                <h4 class="card-used">Card Used: <%= products[i].cc %></h4>
+                <h4 class="address">Address:
+                    <%=products[i].address + ',\n' + products[i].city + ',\n' +products[i].state + ',\n' +products[i].pin%>
+                </h4>
+            </div>
         </div>
-        <% if (product.quan >= 1){ %>
-        <form action="/consumer/add_to_cart" method="post">
-            <input value="<%=product._id%>" id="id" name="id" hidden>
-            <input type="number" placeholder="Qty." id="count" name="count" min="1" max="<%= product.quan %>">
-            <button type="submit">Buy</button>
-        </form>
-        <% } else { %>
-        <h3 style="    position: absolute;
-    margin-left: 50vw;
-    margin-top: 25vw;
-">Product Out Of Stock</h3>
+        <%}%> 
+        <%}else{%>
+        <h2 style="margin-left:17.5vw">Please Buy Products To Get Started</h2>
         <% } %>
     </div>
 </body>
+
+<script>
+    async function RedirectToDetailed(did) {
+        window.location.href =
+            window.location.origin + `/consumer/my_orders/${did}`;
+    }
+
+    function Redirect(back) {
+        window.location.href = window.location.origin + `/consumer/product/${back}`;
+    }
+</script>
