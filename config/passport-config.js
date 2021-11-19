@@ -17,11 +17,7 @@ async function initialize(passport, getUserByEmail, getUserById) {
     }
 
     try {
-      if (await bcrypt.compare(password, user.password)) {
-        return done(null, user)
-      } else {
-        return done(null, false, { message: 'The Password you have entered is inncorrect.' })
-      }
+      return (await bcrypt.compare(password, user.password)) ? done(null, user) : done(null, false, { message: 'The Password you have entered is inncorrect.' });
     } catch (e) {
       console.log(e)
       return done(e)

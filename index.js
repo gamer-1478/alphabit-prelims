@@ -50,19 +50,11 @@ initializePassport(
     passport,
     async (email) => {
         const userdoc = await userCollection.where("email", "==", email).get();
-        if (userdoc.docs.length != 0) {
-            return userdoc.docs[0].data();
-        } else {
-            return null;
-        }
+        return userdoc.docs.length != 0 ? userdoc.docs[0].data() : null;
     },
     async (id) => {
         const userdoc = await userCollection.where("id", "==", id).get();
-        if (userdoc.docs.length != 0) {
-            return userdoc.docs[0].data();
-        } else {
-            return null;
-        }
+        return userdoc.docs.length != 0 ? userdoc.docs[0].data() : null;
     }
 );
 
